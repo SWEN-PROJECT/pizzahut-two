@@ -11,3 +11,6 @@ venv/
 
 # VsCode files
 .vscode/
+
+#Simulation of an env file
+env.txt
