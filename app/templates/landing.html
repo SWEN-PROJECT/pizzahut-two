@@ -1,11 +1,11 @@
 {% extends "base.html" %} 
 
 {% block main %}
-<div class="top pads pads-pa">
+<div class="top">
     <img src="{{url_for('static', filename = 'img/healthy.svg')}}" alt="man-with-cell-phone" />
     <div >
         <h1>Ordering Online</h1>
-        <h2>has never been so easy !</h2>
+        <h1 class="special">has never been so easy !</h1>
         <hr>
         <h2>Want to get started ?</h2>
         <div class="button-group">
@@ -15,10 +15,8 @@
     </div>
 </div>
 <div class="bottom">
-    <div class="parent">
-        <div class="left">
-            <img src="{{url_for('static', filename = 'img/pizza.jpg')}}" alt="nice-looking-pizza">
-        </div>
+    <div class="left">
+        <img src="{{url_for('static', filename = 'img/pizza.jpg')}}" alt="nice-looking-pizza">
     </div>
     <div class="right">
         <h3>Wide Variety to Choose</h3>

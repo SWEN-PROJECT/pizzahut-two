@@ -26,6 +26,10 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 - Customer Sign Ups and Logins
 - Adding a Staff Menu
 
+## Fix to Do list
+
+- Bottom Div for Chrome-based environments
+
 ## Setup of Flask Environment
 
 Remember to run these commands before starting development
