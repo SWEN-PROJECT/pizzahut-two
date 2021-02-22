@@ -1,5 +1,34 @@
 {% extends "base.html" %} 
 
 {% block main %}
-<h2>It a work</h2>
+<div class="top pads pads-pa">
+    <img src="{{url_for('static', filename = 'img/healthy.svg')}}" alt="man-with-cell-phone" />
+    <div >
+        <h1>Ordering Online</h1>
+        <h2>has never been so easy !</h2>
+        <hr>
+        <h2>Want to get started ?</h2>
+        <div class="button-group">
+            <button class="btn blue">Log In</button>
+            <button class="btn orange">Sign Up</button>
+        </div>
+    </div>
+</div>
+<div class="bottom">
+    <div class="parent">
+        <div class="left">
+            <img src="{{url_for('static', filename = 'img/pizza.jpg')}}" alt="nice-looking-pizza">
+        </div>
+    </div>
+    <div class="right">
+        <h3>Wide Variety to Choose</h3>
+        <hr>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis ipsa, 
+            cupiditate laboriosam itaque iure hic sapiente eveniet inventore magni quia recusandae 
+            eum consequuntur, autem nulla quas aperiam pariatur! Fugit magni adipisci ad eligendi 
+            earum. Debitis animi molestias odit at sit.
+        </p>
+    </div>
+</div>
 {% endblock %}

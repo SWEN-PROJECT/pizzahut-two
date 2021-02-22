@@ -1,0 +1,107 @@
+.top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 30px;
+    gap: 0px 30px;
+    img{
+        width: 90%;
+        height: auto;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        h1{
+            margin-bottom: 0px;
+        }
+        h2{
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }      
+        hr{
+            width: 50%;
+            height: 1px;
+            border: 1px solid $pOrange;
+            margin-left: 0px;
+            color: $pOrange;
+        }
+    }
+    .button-group{
+        display: flex;
+        flex-direction: row;
+        .btn{
+            color: $white;
+            padding: 10px;
+            width: 30%;
+            border-style: none;
+            border-radius: 15px;
+            font-weight: 400;
+            font-size: 18px;
+            &:hover{
+                opacity: 0.75;
+                transition: all 300ms ease-in-out;
+                cursor: pointer;
+            }
+        }
+        .blue{
+            background-color: $mBlue;
+        }
+        .orange{
+            background-color: $dOrange;
+            margin-left: 10px;
+        }
+    }
+    
+}
+
+.bottom{
+    padding: 10% 2% 20% 2%;
+    background-color: $lBlue;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 20%;
+    gap: 30px;
+    .parent {
+        width: 90%;
+        height: 160%;
+        position: relative;
+        .left{
+            background-color: $white;
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 90%;
+                height: 85%;
+            }
+        }
+    
+    }
+
+    .right{
+        h3{
+            font-size: 32px;
+            color: $white;
+            margin-bottom: 0px;
+            margin-top: 25%
+        }
+        p{
+            color: $white;
+        }
+        hr{
+            width: 45%;
+            background-color: $white;
+            height: 8px;
+            border: 1px solid $white;
+            margin-left: 0px;
+            color: $white;
+        }
+    }
+}
