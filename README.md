@@ -5,6 +5,7 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 ## Pages Completed 
 
 - Landing Page
+- Login Page
 
 ## Pages to be Completed 
 
