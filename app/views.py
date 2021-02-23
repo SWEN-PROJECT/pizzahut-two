@@ -1,7 +1,7 @@
 from flask_wtf import form
 from app import app
 from flask import render_template, url_for, redirect, flash, request
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 
 @app.route("/")
@@ -12,6 +12,17 @@ def landing():
 def login():
     lform = LoginForm()
     return render_template('login.html', form = lform)
+
+@app.route("/signup", methods=['POST', 'GET'])
+def signup():
+    sform = SignupForm()
+    return render_template('signup.html', form = sform)
+    # if request.method == 'POST':
+    #     if form.validate_on_submit():
+    #         #STORE IN DATABASE
+    #     #flash success message
+    #     # flash('sign Up process sucessful')
+        # return redirect(url_for('home')
 
 
 @app.after_request

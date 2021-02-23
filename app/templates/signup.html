@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+
+{% block main %}
+<div class="top top-signup">
+    <img src="{{url_for('static', filename = 'img/login.svg')}}" alt="woman-trying-to-get-authorised" /> 
+    <div class='signup-right'>
+        <h1>Sign Up</h1>
+        <form action="" method="POST">
+            {{form.csrf_token }}
+            <div class="form-group">
+                {{ form.fname(placeholder="First Name")}}
+                {{ form.lname(placeholder="Last Name")}}
+                {{ form.username(placeholder="Username")}}
+                {{ form.telenum(placeholder="Telephone Number")}}
+                {{ form.streetnum(placeholder="Street Number")}}
+                {{ form.streetname(placeholder="Street Name")}}
+                {{ form.town(placeholder="town")}}
+                {{ form.parish(placeholder="Parish")}}
+                {{ form.password(placeholder="Password")}}
+            </div>
+        </form>
+        <button class="btn blue" type="submit">SignUp</button>
+        <p>Already have an account? <a href="{{url_for('login')}}">Login Here</a></p>
+    </div>
+</div>
+{% endblock %}

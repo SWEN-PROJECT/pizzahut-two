@@ -1,11 +1,11 @@
 <div class="header">
     <nav class="pads pads-pr flex flex-jc-spacebtw flex-alnitems">
-        <a href="#" class="nav-logo">
+        <a href="{{url_for('landing')}}" class="nav-logo">
             <img src="{{url_for('static', filename = 'img/blacklogo.png')}}" alt="MJDNK" width="80px" />
         </a>
         <a href="{{url_for('landing')}}" id="home">Home</a>
         <a href="#" id="about">About</a>
-        <a href="#" class="two two-btn1" id="signup">Sign Up</a>
+        <a href="{{url_for('signup')}}" class="two two-btn1" id="signup">Sign Up</a>
         <a href="{{url_for('login')}}" class="two two-btn2" id="login">Login</a>
     </nav>
 </div>
