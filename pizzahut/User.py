@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, uname, pwd, u_type):
+    def __init__(self, uname, pwd, utype):
         self.uname = uname
         self.pwd = pwd
         self.utype = utype

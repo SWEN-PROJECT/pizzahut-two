@@ -18,3 +18,4 @@ env.txt
 
 ##Python Cache Files
 app/__pycache__/
+pizzahut/__pycache__/

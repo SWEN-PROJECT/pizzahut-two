@@ -2,7 +2,7 @@ from flask_wtf import form
 from app import app
 from flask import render_template, url_for, redirect, flash, request
 from .forms import LoginForm, SignupForm
-from pizzahut import UserManager, Customer
+from pizzahut import UserManager, Customer, User
 
 
 @app.route("/")
@@ -15,8 +15,8 @@ def login():
     lform = LoginForm()
     if request.method == 'POST':
         if lform.validate_on_submit():
-            manager = UserManager()
-            temp = User(request.form['username'])
+            manager = UserManager.UserManager()
+            temp = User.User(request.form['username'])
             result = manager.queryUser(temp)
             if result == None:
                 flash('This Username or/and Password does not correspond to a User', 'danger')
@@ -35,18 +35,20 @@ def signup():
         if sform.validate_on_submit():
             #flash('Form validated', 'success')
             #STORE IN DATABASE
-            manager = UserManager()
-            uservalid = manager.queryUser(sform.uname.data) 
+            manager = UserManager.UserManager()
+            uservalid = manager.queryUser(sform.username.data) 
             if uservalid == None:
-                customer = Customer(sform.uname.data,sform.password.data,sform.fname.data,sform.lname.data,
+                customer = Customer.Customer(sform.username.data,sform.password.data,sform.fname.data,sform.lname.data,
                 sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,
                 sform.email.data)
                 message = manager.insertUser(customer)         #Stores whether the user was added or not.   
-                #flash success message
+                #flash(message)
                 
                 if message == "User added":
                     flash('Your account has been created!', 'success')
                     return redirect(url_for('login'))
+                elif message == "User Wrong":
+                    flash('USER WRONG.', 'danger')
                 else:
                     flash('User was not successfully created.', 'danger')
                     return redirect(url_for('signup'))

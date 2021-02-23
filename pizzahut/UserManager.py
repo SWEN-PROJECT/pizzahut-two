@@ -1,5 +1,5 @@
 from app import db
-from app.models import User
+from app.models import User, Customer
 import hashlib
 
 class UserManager():
@@ -17,7 +17,7 @@ class UserManager():
     def insertUser(self, customer):
         try: 
             #passwordhash 
-            hashedPass = encrypt_password(customer.getPassword())
+            hashedPass = 'hello' #customer.getPassword() #encrypt_password(customer.getPassword())
             
             db.session.add(User(customer.getUname(), hashedPass, customer.getType()))
             user = db.session.query(User).filter_by(u_name=customer.getUname()).all()
@@ -25,20 +25,23 @@ class UserManager():
             #name
             name = customer.getName()
             fname = name.getFname
-            lname = name.getLnameLO
+            lname = name.getLname
             #address
             address = customer.getAddress
             streetnum = address.getstreetnumum()
             streetname = address.getstreetname()
             town = address.gettown()
-            parish = addess.getparish()
+            parish = address.getparish()
             #contact
             phone = customer.getTeleNum()
             email = customer.getEmail()
             #add to customer db
-            db.session.add(Customer(user.uid, fname, lname, phone, streetnum, streetname, town, parish, email))
-            db.session.commit()
-            return "User added"
+            # db.session.add(Customer(user.uid, fname, lname, phone, streetnum, streetname, town, parish, email))
+            # db.session.commit()
+            if user != None:
+                return "User added"
+            else: 
+                return "User Wrong"
         except:
             return "User not added"
 

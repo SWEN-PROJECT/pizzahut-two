@@ -1,12 +1,21 @@
-from pizzahut import User, Name, Address
+from pizzahut import User, Address, Name
 
-class Customer():
+class Customer(User.User):
     def __init__(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
-        User.__init__(self, uname, pwd, 'C')
-        self.name = Name(fname, lname)
-        self.address = Address(streetname, streetnum, town, parish)
+        super().__init__(self,uname, pwd, 'C')
+        self.name = Name.Name(fname, lname)
+        self.address = Address.Address(streetname, streetnum, town, parish)
         self.email = email
         self.telenum = tele
+
+    def getUname(self):
+        return super().getUname()
+
+    def getPassword(self):
+        return super().getPassword()
+
+    def getType(self):
+        return super().getType()
 
     @property
     def getName(self):
