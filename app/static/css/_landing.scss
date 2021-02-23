@@ -3,11 +3,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
+    &-login{
+        padding: 9% 0% 9% 6%;
+    }
     img{
         width: 90%;
         height: auto;
     }
-    div{
+    .landing{
         display: flex;
         flex-direction: column;
         align-items: center;

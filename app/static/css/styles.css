@@ -116,7 +116,7 @@ body {
 .footer {
   background-color: #4F6A78;
   color: #ffffff;
-  padding: 2.0625rem;
+  padding: 1.0625rem;
   font-size: 1.125rem;
 }
 
@@ -129,12 +129,16 @@ body {
   gap: 50px;
 }
 
+.top-login {
+  padding: 9% 0% 9% 6%;
+}
+
 .top img {
   width: 90%;
   height: auto;
 }
 
-.top div {
+.top .landing {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -151,14 +155,14 @@ body {
   width: 90%;
 }
 
-.top div h1 {
+.top .landing h1 {
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin-bottom: 0px;
   margin-top: 0px;
 }
 
-.top div .special {
+.top .landing .special {
   font-weight: normal;
   margin-top: 5px;
   font-size: 28px;
@@ -166,7 +170,7 @@ body {
   margin-bottom: 10px;
 }
 
-.top div h2 {
+.top .landing h2 {
   -ms-flex-item-align: start;
       align-self: flex-start;
   font-weight: normal;
@@ -174,7 +178,7 @@ body {
   margin-top: 10px;
 }
 
-.top div hr {
+.top .landing hr {
   width: 50%;
   height: 1px;
   border: 1px solid #D88E6E;
@@ -290,5 +294,81 @@ body {
   border: 1px solid #ffffff;
   margin-left: 0px;
   color: #ffffff;
+}
+
+.login-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.login-right h1 {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.login-right .form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.login-right .form-group input {
+  width: 80%;
+  padding: 15px 10px;
+  margin-top: 30px;
+  border: 2px solid #0580C3;
+  border-radius: 4px;
+  font-family: 'Monsterrat', sans-serif;
+}
+
+.login-right .btn {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  color: #ffffff;
+  padding: 15px 5px;
+  width: 30%;
+  border-style: none;
+  border-radius: 15px;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.login-right .btn:hover {
+  opacity: 0.75;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.login-right .blue {
+  margin-top: 6%;
+  background-color: #0580C3;
+  margin-bottom: 3%;
+}
+
+.login-right p {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.login-right p a {
+  text-decoration: underline;
+  color: #CF6E45;
+  font-weight: bold;
 }
 /*# sourceMappingURL=styles.css.map */
