@@ -26,23 +26,23 @@ class Item:
     def getQty(self):
         return self.quan
 
-    @Name.setter
+    #@Name.setter
     def setName(self, name):
         self.name = name
 
-    @Type.setter
+    #@Type.setter
     def setType(self, itype):
         self.itype = itype
 
-    @num.setter
+    #@num.setter
     def setnum(self, num):
         self.num = num
 
-    @Price.setter
+    #@Price.setter
     def setPrice(self, price):
         self.price = price
 
-    @Qty.setter
+    #@Qty.setter
     def setQty(self, quan):
         self.quan = quan
 

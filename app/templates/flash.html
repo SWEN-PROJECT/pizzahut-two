@@ -1,0 +1,9 @@
+<!--Code from the Github repo: https://github.com/uwi-info3180/flask-forms is used to display flash messages-->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}

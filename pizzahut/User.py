@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, uname, pwd, utype):
+    def __init__(self, uname, pwd, u_type):
         self.uname = uname
         self.pwd = pwd
         self.utype = utype
@@ -16,16 +16,12 @@ class User:
     def getType(self):
         return self.utype
     
-    # @property
-    # def getId(self):
-    #     return self.id
-
-    
-    @username.setter
+    #methods 
+    #@uname.setter
     def setUname(self, uname):
         self.uname = uname
 
-    @password.setter
+    #@pwd.setter
     def setPassword(self, pwd):
         self.pwd = pwd
 

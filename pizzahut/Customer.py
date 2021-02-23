@@ -1,8 +1,6 @@
-import User
-import Name
-import Address
+from pizzahut import User, Name, Address
 
-class Customer(User):
+class Customer():
     def __init__(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
         User.__init__(self, uname, pwd, 'C')
         self.name = Name(fname, lname)
@@ -21,24 +19,24 @@ class Customer(User):
     @property
     def getTeleNum(self):
         return self.telenum
-    
+        
     @property
     def getEmail(self):
         return self.email
     
-    @Name.setter
+    #@Name.setter
     def setName(self, name):
         self.name = name
 
-    @Address.setter
+    #@Address.setter
     def setAddress(self, address):
         self.address = address
     
-    @Email.setter
+    #@Email.setter
     def setEmail(self, email):
         self.email = email
     
-    @Telenum.setter
+    #@Telenum.setter
     def setTelenum(self, tele):
         self.telenum = tele
 

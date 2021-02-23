@@ -2,28 +2,65 @@ from flask_wtf import form
 from app import app
 from flask import render_template, url_for, redirect, flash, request
 from .forms import LoginForm, SignupForm
+from pizzahut import UserManager, Customer
 
 
 @app.route("/")
 def landing():
     return render_template('landing.html')
 
+"""Log in method which logs already registered users into the system."""
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     lform = LoginForm()
+    if request.method == 'POST':
+        if lform.validate_on_submit():
+            manager = UserManager()
+            temp = User(request.form['username'])
+            result = manager.queryUser(temp)
+            if result == None:
+                flash('This Username or/and Password does not correspond to a User', 'danger')
+            else:
+                redirect(url_for('dashboard'))
+        else:
+            flash_errors(lform)
     return render_template('login.html', form = lform)
 
+"""Sign up view method which takes form data, processes it and adds Customer to DB"""
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
     sform = SignupForm()
+    if request.method == 'POST':
+        #flash('Post successful', 'success')
+        if sform.validate_on_submit():
+            #flash('Form validated', 'success')
+            #STORE IN DATABASE
+            manager = UserManager()
+            uservalid = manager.queryUser(sform.uname.data) 
+            if uservalid == None:
+                customer = Customer(sform.uname.data,sform.password.data,sform.fname.data,sform.lname.data,
+                sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,
+                sform.email.data)
+                message = manager.insertUser(customer)         #Stores whether the user was added or not.   
+                #flash success message
+                
+                if message == "User added":
+                    flash('Your account has been created!', 'success')
+                    return redirect(url_for('login'))
+                else:
+                    flash('User was not successfully created.', 'danger')
+                    return redirect(url_for('signup'))
+            else:
+                flash('Username is taken.', 'danger')
+                return redirect(url_for('signup'))
+        else:
+            #flash error message
+            flash_errors(sform)
     return render_template('signup.html', form = sform)
-    # if request.method == 'POST':
-    #     if form.validate_on_submit():
-    #         #STORE IN DATABASE
-    #     #flash success message
-    #     # flash('sign Up process sucessful')
-        # return redirect(url_for('home')
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template('cdashboard.html')
 
 @app.after_request
 def add_header(response):

@@ -11,11 +11,11 @@ class Name:
     def getLname(self):
         return self.lname
     
-    @Fname.setter
+    #@Fname.setter
     def setFname(self, fname):
         self.fname = fname
 
-    @Lname.setter
+    #@Lname.setter
     def setLname(self, lname):
         self.lname = lname
 
