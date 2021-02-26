@@ -5,19 +5,19 @@ class Address:
         self.town = town
         self.parish = parish
 
-    @property
+   
     def getstreetname(self):
         return self.streetname
     
-    @property
+   
     def getstreetnum(self):
         return self.streetnum
     
-    @property
+   
     def getparish(self):
         return self.parish
     
-    @property
+   
     def gettown(self):
         return self.town
     

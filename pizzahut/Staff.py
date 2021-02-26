@@ -1,5 +1,5 @@
 import User
-class Staff(User):
+class Staff(User.User):
     def __init__(self, uname, pwd):
         User.__init__(self, uname, pwd, 'Staff')
     

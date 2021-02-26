@@ -6,7 +6,7 @@ from pytz import timezone
 timezone=timezone("EST")
 
 """Model for the User Table in the Pizza Hut(2) Database"""
-class User(db.Model):
+class Euser(db.Model):
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     u_name = db.Column(db.String(20), unique=True)
     u_type = db.Column(db.String(5))
@@ -14,15 +14,16 @@ class User(db.Model):
 
     def __init__(self,u_name, password, u_type):
         self.u_name = u_name
-        self.email = email
         self.password = password
         self.u_type = u_type
 
+    def __repr__(self):
+        return '<Profile {} {} {} {}>'.format(self.uid, self.u_name, self.password , self.u_type)
 
 """Model for the Customer Table in the Pizza Hut(2) Database"""
 class Customer(db.Model):
     cid = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
+    uid = db.Column(db.Integer, db.ForeignKey('euser.uid'))
     fname = db.Column(db.String(20))
     lname = db.Column(db.String(50))
     phone_num = db.Column(db.String(14),unique = True)
@@ -33,7 +34,8 @@ class Customer(db.Model):
     email = db.Column(db.String(100),unique=True)
     rewards_points = db.Column(db.Integer,default=0)
 
-    def __init__(self,fname, lname, phone_num, street_num, street_name, town, parish, email, rewards_points):
+    def __init__(self,uid, fname, lname, phone_num, street_num, street_name, town, parish, email, rewards_points=0):
+        self.uid = uid
         self.fname = fname
         self.lname = lname
         self.phone_num = phone_num
@@ -63,7 +65,7 @@ class Item(db.Model):
 class Order(db.Model):
     order_num = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_create = db.Column(db.DateTime, default = datetime.now(timezone))    
-    uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
+    uid = db.Column(db.Integer, db.ForeignKey('euser.uid'))
     item_list = db.Column(db.String(250))
     total_price = db.Column(db.Float(precision=2,asdecimal=False))
     tag = db.Column(db.String(10))

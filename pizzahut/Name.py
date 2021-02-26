@@ -3,11 +3,11 @@ class Name:
         self.fname = fname
         self.lname = lname
 
-    @property
+    
     def getFname(self):
         return self.fname
     
-    @property
+    
     def getLname(self):
         return self.lname
     

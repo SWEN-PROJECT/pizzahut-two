@@ -5,14 +5,12 @@ class User:
         self.utype = utype
         # self.id = id
 
-    @property
     def getUname(self):
         return self.uname
-    
-    @property
+   
     def getPassword(self):
         return self.pwd
-    @property
+  
     def getType(self):
         return self.utype
     

@@ -3,6 +3,7 @@ from app import app
 from flask import render_template, url_for, redirect, flash, request
 from .forms import LoginForm, SignupForm
 from pizzahut import UserManager, Customer, User
+from werkzeug.security import check_password_hash
 
 
 @app.route("/")
