@@ -3,7 +3,6 @@ from app import app
 from flask import render_template, url_for, redirect, flash, request
 from .forms import LoginForm, SignupForm
 from pizzahut import UserManager, Customer, User
-from werkzeug.security import check_password_hash
 
 
 @app.route("/")
@@ -21,8 +20,10 @@ def login():
             result = manager.queryUser(temp)
             if result == None:
                 flash('This Username or/and Password does not correspond to a User', 'danger')
+            if manager.decrypt_password(result.getPassword(), request.form['password']):
+                return redirect(url_for('dashboard'))
             else:
-                redirect(url_for('dashboard'))
+                flash('Cannot log in', 'danger')
         else:
             flash_errors(lform)
     return render_template('login.html', form = lform)
@@ -37,7 +38,8 @@ def signup():
             #flash('Form validated', 'success')
             #STORE IN DATABASE
             manager = UserManager.UserManager()
-            uservalid = manager.queryUser(sform.username.data) 
+            temp = User.User(request.form['username'])
+            uservalid = manager.queryUser(temp) 
             if uservalid == None:
                 customer = Customer.Customer(sform.username.data,sform.password.data,sform.fname.data,sform.lname.data,
                 sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,
