@@ -19,12 +19,7 @@ class UserManager():
             return None 
     
     def insertUser(self, customer):
-            #passwordhash 
             hashedPass = self.encrypt_password(customer.getPassword())
-            # decrypted = self.decrypt_password(hashedPass, customer.getPassword())
-            # print(hashedPass)
-            # print(decrypted)
-
             
             db.session.add(Euser(customer.getUname(), hashedPass, customer.getType()))
             user = db.session.query(Euser).filter_by(u_name=customer.getUname()).all()

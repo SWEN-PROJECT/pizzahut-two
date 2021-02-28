@@ -20,7 +20,7 @@ def login():
             result = manager.queryUser(temp)
             if result == None:
                 flash('This Username or/and Password does not correspond to a User', 'danger')
-            if manager.decrypt_password(result.getPassword(), request.form['password']):
+            elif manager.decrypt_password(result.getPassword(), request.form['password']):
                 return redirect(url_for('dashboard'))
             else:
                 flash('Cannot log in', 'danger')
