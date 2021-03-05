@@ -5,6 +5,11 @@ Thumbs.db
 *.py[cod]
 *$py.class
 
+##Python Cache Files
+__pycache__
+app/__pycache__/__init__.cpython-38.pyc
+app/__pycache__/views.cpython-38.pyc
+
 ### Virtual Environment 
 .venv/
 venv/
@@ -16,6 +21,3 @@ venv/
 env.txt
 .env.txt
 
-##Python Cache Files
-app/__pycache__/
-pizzahut/__pycache__/

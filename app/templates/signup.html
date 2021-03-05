@@ -4,26 +4,39 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css')}}">
 {% endblock %}
 {% block main %}
-<div class="top top-signup">
-    <img src="{{url_for('static', filename = 'img/login.svg')}}" alt="woman-trying-to-get-authorised" /> 
+<div class="main">
+    <div class="image">
+        <div class="ellipse ellipse1"></div>
+        <div class="ellipse ellipse2"></div>
+        <div class="ellipse ellipse3"></div>
+    </div>
     <div class='signup-right'>
         <h1>Sign Up</h1>
+        <h2>Please enter information to create an account.</h2>
         {% include 'flash.html'%}
         <form action="/signup" method="POST">
             {{form.csrf_token }}
-            <div class="form-group">
+            <div class="form-group-row">
                 {{ form.fname(placeholder="First Name")}}
                 {{ form.lname(placeholder="Last Name")}}
-                {{ form.email(placeholder="Email")}}
+            </div>
+            <div class="form-group">
                 {{ form.username(placeholder="Username")}}
-                {{ form.telenum(placeholder="Telephone Number")}}
-                {{ form.streetnum(placeholder="Street Number")}}
-                {{ form.streetname(placeholder="Street Name")}}
-                {{ form.town(placeholder="town")}}
-                {{ form.parish(placeholder="Parish")}}
                 {{ form.password(placeholder="Password")}}
             </div>
-            <button class="btn blue" type="submit">Sign Up</button>
+            <div class="form-group-row">
+                {{ form.email(placeholder="Email")}}
+                {{ form.telenum(placeholder="Telephone Number")}}
+            </div>
+            <div class="form-group-row">
+                {{ form.streetnum(placeholder="Street Number")}}
+                {{ form.streetname(placeholder="Street Name")}}
+            </div>
+            <div class="form-group">
+                {{ form.town(placeholder="Town")}}
+                {{ form.parish(placeholder="Parish")}}
+            </div>
+            <button class="btn orange" type="submit">Sign Up</button>
         </form>
         <p>Already have an account? <a href="{{url_for('login')}}">Login Here</a></p>
     </div>
