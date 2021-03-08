@@ -1,0 +1,69 @@
+{% extends 'base.html'%}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css')}}">
+{% endblock %}
+
+{% block main %}
+<section>
+    {% if type == "C" %}
+        <div class="points">
+            <h1>Points: 0000</h1>
+        </div>
+        <h1 class="first">Dashboard</h1>
+        <h2>Welcome, User</h2>
+        <div class="grid">
+            <div class="card-holder">
+                <div class="card">
+                    <div class="circle"></div>
+                    <div>
+                        <h3>Make Order</h3>
+                        <p>Make your orders online with ease</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="circle"></div>
+                    <div>
+                        <h3>Edit Profile</h3>
+                        <p>View your profile or Edit your profile information</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="{{url_for('static', filename='img/dash.svg')}}" alt="Personal Preferences">
+            </div>
+        </div>
+    {% else %}
+        <h1 class="first">Dashboard</h1>
+        <h2>Welcome, User</h2>
+        <div class="grid">
+            <div class="card-holder">
+                <div class="card">
+                    <div class="circle"></div>
+                    <div>
+                        <h3>Edit Menu</h3>
+                        <p>Add, edit or delete current menu items</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="circle"></div>
+                    <div>
+                        <h3>Generate Report</h3>
+                        <p>Generate daily, monthly or yearly reports</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="circle"></div>
+                    <div>
+                        <h3>Create Staff Account</h3>
+                        <p>Create a Staff Account</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image">
+                <img src="{{url_for('static', filename='img/dash.svg')}}" alt="Personal Preferences">
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

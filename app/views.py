@@ -1,6 +1,6 @@
 from flask_wtf import form
 from app import app
-from flask import render_template, url_for, redirect, flash, request
+from flask import render_template, url_for, redirect, flash, request, session
 from .forms import LoginForm, SignupForm
 from pizzahut import UserManager, Customer, User
 
@@ -65,7 +65,9 @@ def signup():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template('cdashboard.html')
+    session['logged-in'] = True
+    session['type'] = 'C'
+    return render_template('dashboard.html', type=session['type'])
 
 @app.after_request
 def add_header(response):
