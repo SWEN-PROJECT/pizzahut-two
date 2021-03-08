@@ -7,11 +7,13 @@ from pizzahut import UserManager, Customer, User
 
 @app.route("/")
 def landing():
+    session.pop('logged-in', None)
     return render_template('landing.html')
 
 """Log in method which logs already registered users into the system."""
 @app.route("/login", methods=['POST', 'GET'])
 def login():
+    session.pop('logged-in', None)
     lform = LoginForm()
     if request.method == 'POST':
         if lform.validate_on_submit():
@@ -31,6 +33,7 @@ def login():
 """Sign up view method which takes form data, processes it and adds Customer to DB"""
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
+    session.pop('logged-in', None)
     sform = SignupForm()
     if request.method == 'POST':
         #flash('Post successful', 'success')
@@ -66,7 +69,7 @@ def signup():
 @app.route("/dashboard")
 def dashboard():
     session['logged-in'] = True
-    session['type'] = 'C'
+    session['type'] = 'M'
     return render_template('dashboard.html', type=session['type'])
 
 @app.after_request

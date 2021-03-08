@@ -108,6 +108,32 @@ body {
   color: #0580C3;
 }
 
+.header .two-btn3 {
+  background-color: #ffffff;
+  border: solid 1px #0580C3;
+  color: #0580C3;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.header .group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header .circle {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: #C4C4C4;
+  margin-right: 20px;
+}
+
 .header nav {
   padding-top: 1.065rem;
   padding-bottom: 1.065rem;

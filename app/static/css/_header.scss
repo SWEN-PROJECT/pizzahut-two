@@ -29,7 +29,25 @@
             border: solid 1px $mBlue;
             color: $mBlue;
         }
+        &-btn3{
+            background-color: $white;
+            border: solid 1px $mBlue;
+            color: $mBlue;
+            align-self: center;
+        }
     }
+    .group{
+        display: flex;
+        align-items: center;
+    }
+    .circle{
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        background-color: $lGray;
+        margin-right: 20px;
+    }
+
     nav{
         padding-top: 1.065rem;
         padding-bottom: 1.065rem;
