@@ -17,7 +17,19 @@ class Euser(db.Model):
         self.u_name = u_name
         self.password = password
         self.u_type = u_type
+    
+    def is_authenticated(self):
+        return True
 
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.uid)  # python 3 support
+    
     def __repr__(self):
         return '<Profile {} {} {} {}>'.format(self.uid, self.u_name, self.password , self.u_type)
 

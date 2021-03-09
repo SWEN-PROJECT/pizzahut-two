@@ -1,21 +1,29 @@
-{% extends "base.html" %} 
-
-{% block main %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+{% extends "base.html" %} {% block main %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/login.css')}}"
+/>
 {% block css %}{% endblock %}
 <div class="top top-login">
-    <img src="{{url_for('static', filename = 'img/login.svg')}}" alt="woman-trying-to-get-authorised" />
-    <div class='login-right'>
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            {{form.csrf_token }}
-            <div class="form-group">
-                {{ form.username(placeholder="Username")}}
-                {{ form.password(placeholder="Password")}}
-            </div>
-        </form>
+  <img
+    src="{{url_for('static', filename = 'img/login.svg')}}"
+    alt="woman-trying-to-get-authorised"
+  />
+  <div class="login-right">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+      {{form.csrf_token }}
+      <div class="form-group">
+        {% include 'flashmssgs.html' %} {{
+        form.username(placeholder="Username")}} {{
+        form.password(placeholder="Password")}}
         <button class="btn blue" type="submit">Login</button>
-        <p>Not registered for an account? <a href="{{url_for('signup')}}">Sign Up Here</a></p>
-    </div>
+      </div>
+    </form>
+    <p>
+      Not registered for an account?
+      <a href="{{url_for('signup')}}">Sign Up Here</a>
+    </p>
+  </div>
 </div>
 {% endblock %}

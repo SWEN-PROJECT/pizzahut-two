@@ -1,13 +1,23 @@
 from app import db
 from app.models import Euser, Customer
-from . import User
+from Users import User, Customers
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class UserManager():
 
     def __init__(self):
         pass
-    
+
+    def getModel(self, user):
+        try:
+            result = db.session.query(Euser).filter_by(u_name=user.getUname()).all()
+            if result == []:
+                return None
+            result = result[0]
+            return result
+        except:
+            return None 
+
     def queryUser(self, user):
         try:
             result = db.session.query(Euser).filter_by(u_name=user.getUname()).all()
@@ -51,3 +61,11 @@ class UserManager():
     
     def decrypt_password(self, hashed, password):
         return check_password_hash(hashed, password)
+    
+    def createuser(self, uname, password, utype):
+        temp = User.User(uname, password, utype)
+        return temp
+    
+    def createcust(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
+        cust = Customers.Customer(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
+        return cust

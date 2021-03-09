@@ -1,6 +1,9 @@
-from pizzahut import User, Address, Name
+from UserInformation import Name, Address
+from . import User
 
-class Customer(User.User):
+"""Class to get and set all Customer data."""
+
+class Customers(User.User):
     def __init__(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
         super().__init__(uname, pwd, 'C')
         self.name = Name.Name(fname, lname)
@@ -29,22 +32,16 @@ class Customer(User.User):
     def getEmail(self):
         return self.email
     
-    #@Name.setter
     def setName(self, name):
         self.name = name
 
-    #@Address.setter
     def setAddress(self, address):
         self.address = address
     
-    #@Email.setter
     def setEmail(self, email):
         self.email = email
     
-    #@Telenum.setter
     def setTelenum(self, tele):
         self.telenum = tele
 
     #reward points need to go in 
-
-    #calculate reward points need to go in 

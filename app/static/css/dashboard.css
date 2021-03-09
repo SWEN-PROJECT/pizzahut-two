@@ -149,15 +149,18 @@ body {
 
 section {
   padding: 3%;
+  background-image: url("/static/img/background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 section .points {
-  width: 20%;
-  height: 10vh;
+  width: 18%;
+  height: 8vh;
   background-color: #CF6E45;
   border-radius: 10px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -181,6 +184,14 @@ section .first {
 section h2 {
   font-weight: normal;
   margin-bottom: 30px;
+}
+
+section a {
+  color: #ffffff;
+}
+
+section a:link {
+  text-decoration: none;
 }
 
 section .grid {
@@ -215,6 +226,10 @@ section .grid .card-holder .card {
           align-items: center;
 }
 
+section .grid .card-holder .card:hover {
+  opacity: 0.75;
+}
+
 section .grid .card-holder .card .circle {
   border-radius: 50%;
   width: 45px;
@@ -247,5 +262,25 @@ section .grid .image {
 section .grid img {
   width: 90%;
   height: auto;
+}
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
 /*# sourceMappingURL=dashboard.css.map */

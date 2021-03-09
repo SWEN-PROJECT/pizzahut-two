@@ -1,45 +1,48 @@
-{% extends "base.html" %} 
-
-{% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/signin.css')}}">
-{% endblock %}
-{% block main %}
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/signin.css')}}"
+/>
+{% endblock %} {% block main %}
 <div class="main">
-    <div class="image">
-        <div class="ellipse ellipse1"></div>
-        <div class="ellipse ellipse2"></div>
-        <div class="ellipse ellipse3"></div>
-    </div>
-    <div class='signup-right'>
-        <h1>Sign Up</h1>
-        <h2>Please enter information to create an account.</h2>
-        {% include 'flash.html'%}
-        <form action="/signup" method="POST">
-            {{form.csrf_token }}
-            <div class="form-group-row">
-                {{ form.fname(placeholder="First Name")}}
-                {{ form.lname(placeholder="Last Name")}}
-            </div>
-            <div class="form-group">
-                {{ form.username(placeholder="Username")}}
-                {{ form.password(placeholder="Password")}}
-            </div>
-            <div class="form-group-row">
-                {{ form.email(placeholder="Email")}}
-                {{ form.telenum(placeholder="Telephone Number")}}
-            </div>
-            <div class="form-group-row">
-                {{ form.streetnum(placeholder="Street Number")}}
-                {{ form.streetname(placeholder="Street Name")}}
-            </div>
-            <div class="form-group">
-                {{ form.town(placeholder="Town")}}
-                {{ form.parish(placeholder="Parish")}}
-            </div>
-            <button class="btn orange" type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="{{url_for('login')}}">Login Here</a></p>
-    </div>
+  <div class="image">
+    <div class="ellipse ellipse1"></div>
+    <div class="ellipse ellipse2"></div>
+    <div class="ellipse ellipse3"></div>
+  </div>
+  {% include 'flashmssgs.html' %}
+  <div class="signup-right">
+    <h1>Sign Up</h1>
+    <h2>Please enter information to create an account.</h2>
+    {% include 'flash.html'%}
+    <form action="/signup" method="POST">
+      {{form.csrf_token }}
+      <div class="form-group-row">
+        {{ form.fname(placeholder="First Name")}} {{
+        form.lname(placeholder="Last Name")}}
+      </div>
+      <div class="form-group">
+        {{ form.username(placeholder="Username")}} {{
+        form.password(placeholder="Password")}}
+      </div>
+      <div class="form-group-row">
+        {{ form.email(placeholder="Email")}} {{
+        form.telenum(placeholder="Telephone Number")}}
+      </div>
+      <div class="form-group-row">
+        {{ form.streetnum(placeholder="Street Number")}} {{
+        form.streetname(placeholder="Street Name")}}
+      </div>
+      <div class="form-group">
+        {{ form.town(placeholder="Town")}} {{
+        form.parish(placeholder="Parish")}}
+      </div>
+      <button class="btn orange" type="submit">Sign Up</button>
+    </form>
+    <p>
+      Already have an account? <a href="{{url_for('login')}}">Login Here</a>
+    </p>
+  </div>
 </div>
 <!-- <br><br> -->
 {% endblock %}
