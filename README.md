@@ -2,18 +2,18 @@
 
 This is the github repo for MJDNK Solutions, Online Ordering System
 
-## Pages Completed 
+## Pages Completed
 
 - Landing Page
 - Login Page
 - SignUp Page
-
-## Pages to be Completed 
-
 - Dashboard (Customer and Manager)
+
+## Pages to be Completed
+
 - Edit Menu
 - Generate Report
-- Add Staff Member 
+- Add Staff Member
 - Make Order
 - View Profile (Optional)
 - Pop Up Forms
@@ -39,6 +39,6 @@ Remember to run these commands before starting development
 ```bash
 $ python -m venv venv (you may need to use python3 instead)
 $ source venv/bin/activate (or .\venv\Scripts\activate on Windows)
-$ pip install -r requirements.txt 
+$ pip install -r requirements.txt
 $ python run.py
 ```
