@@ -1,11 +1,14 @@
+import os
 from flask_wtf import form
 from app import app, login_manager
-from flask import render_template, url_for, redirect, flash, request, session
+from flask import render_template, url_for, redirect, flash, request, session, send_from_directory
 from flask_login import logout_user, current_user, login_required
-from .forms import LoginForm, SignupForm
-from AppController import LSHandler
+from .forms import LoginForm, SignupForm, ItemForm
+from AppController import LSHandler, MenuHandler
 from app.models import Euser
-
+from werkzeug.utils import secure_filename
+from DBManager import UserManager
+from Users import User
 
 @app.route("/")
 def landing():
@@ -22,6 +25,7 @@ def login():
             if (attempt == "N"): flash('No user exists with this password and username.', 'danger')
             elif (attempt == "Y"): 
                 flash('Login successful!', 'success')
+                session["uname"] = request.form['username']
                 return redirect(url_for('dashboard'))
             else: flash('Cannot login as user ' + request.form['username'], 'danger')
         else: 
@@ -59,6 +63,8 @@ def signup():
             flash_errors(sform)
     return render_template('signup.html', form = sform)
 
+
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
@@ -66,6 +72,72 @@ def dashboard():
 		return redirect(url_for('landing'))
 	session['logged-in'] = True
 	return render_template('dashboard.html', type=current_user.u_type)
+
+"""Get Menu Method"""
+@app.route("/menu")
+@login_required
+def menu():
+    if not current_user.is_authenticated:
+        return redirect(url_for('landing'))
+    else:
+        iform = ItemForm()
+        ctrl = MenuHandler.MenuHandler()
+        if request.method == 'POST':
+            if iform.validate_on_submit():
+                #saves the file to the uploads folder 
+                image = form.image.data
+                imagename = secure_filename(image.filename)
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], imagename))
+
+                attempt = ctrl.MenuHandler(iform.name.data, iform.price.data, iform.tag.data, iform.description.data, imagename)
+                results = ctrl.addItem()
+                flash('Item Successfully Added Saved', 'success')
+                return redirect(url_for('menu'))
+            flash_errors(form)
+        else:
+            items = ctrl.viewHandle()
+    return render_template('menu.html', items=items, type=current_user.u_type, edit_form = iform)
+
+
+"""Edit Profile Method"""
+@login_required
+@app.route("/edit-profile")
+def editProfile():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    else:
+        try:
+            updateForm = SignupForm()
+            handler = LSHandler.LSHandler()
+            cUser = handler.loadCustomer()
+
+            if request.method == 'POST':
+                pass
+        except:
+            pass
+#             print(cUser.uname)
+#             """
+#             manager = UserManager.UserManager()
+#             temp = User.User(session["uname"])
+#             result = manager.queryUser(temp)
+
+#             result = db.session.query(Euser).filter_by(u_name=user.getUname()).all()
+#             if result == []:
+#                 return None
+#             result = result[0]
+#             print(result)
+#             #return result
+#         #except:
+#             #return None
+#   
+    return render_template('editprofile.html',form=updateForm, user=cUser)
+
+
+"""Retrieve Item Route"""
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    rootdir = os.getcwd()
+    return  send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']),filename)
 
 @app.after_request
 def add_header(response):

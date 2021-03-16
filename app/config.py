@@ -3,6 +3,7 @@ import os
 class Config(object):
     """Base Config Object"""
     DEBUG = False
+    UPLOAD_FOLDER = './uploads'
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQL_DRIVER') 
     SQLALCHEMY_TRACK_MODIFICATIONS = False

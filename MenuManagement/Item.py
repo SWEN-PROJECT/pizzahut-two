@@ -1,30 +1,35 @@
 class Item:
-    def __init__(self, name, itype, num, price, quan):
-        self.name = name
-        self.itype = itype
+    
+    def __init__(self, name, description, itype, price, imagename, num = 0, quan = 0):
         self.num = num
+        self.name = name
+        self.description = description
+        self.itype = itype
         self.price = price
+        self.imagename = imagename
         self.quan = quan
 
-    @property
     def getName(self):
         return self.name
     
-    @property
+    def getDescription(self):
+        return self.description
+    
     def getType(self):
         return self.itype
 
-    @property
     def getNum(self):
         return self.num
     
-    @property
+    def getImageName(self):
+        return self.imagename
+
     def getPrice(self):
         return self.price
 
-    @property
     def getQty(self):
         return self.quan
+
 
     #@Name.setter
     def setName(self, name):
@@ -41,7 +46,9 @@ class Item:
     #@Price.setter
     def setPrice(self, price):
         self.price = price
-
+    #@imagename.setter
+    def setImagename(self, imagename):
+        self.imangname = imangname
     #@Qty.setter
     def setQty(self, quan):
         self.quan = quan

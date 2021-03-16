@@ -13,7 +13,7 @@
   <h2>Welcome, User</h2>
   <div class="grid">
     <div class="card-holder">
-      <a href="#">
+      <a href="{{ url_for('menu')}}">
         <div class="card">
           <div class="circle"></div>
           <div>
@@ -22,7 +22,8 @@
           </div>
         </div>
       </a>
-      <a href="#">
+      <!--edit profile here-->
+      <a href="{{url_for('editProfile')}}">
         <div class="card">
           <div class="circle"></div>
           <div>

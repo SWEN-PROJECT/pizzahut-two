@@ -1,5 +1,6 @@
 from app import db
 from app.models import Euser, Customer
+from flask import session
 from Users import User, Customers
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -28,6 +29,28 @@ class UserManager():
         except:
             return None 
     
+    
+
+    def queryCustomer(self, id):
+        try:
+            result = db.session.query(Customer).filter_by(uid=id).all()
+            if result == []:
+                return None
+            result = result[0]
+            return Customers.Customer("","", result.fname, result.lname, result.phone_num, result.street_num, result.street_name, result.town, result.parish, result.email)
+        except:
+            return None 
+    
+    
+    """
+    admin = User.query.filter_by(username='admin').first()
+    admin.email = 'my_new_email@example.com'
+    db.session.commit()
+
+    user = User.query.get(5)
+    user.name = 'New Name'
+    db.session.commit()
+    """
     def insertUser(self, customer):
             hashedPass = self.encrypt_password(customer.getPassword())
             
@@ -55,6 +78,20 @@ class UserManager():
                 return "User added"
             else: 
                 return "User Wrong"
+
+
+    def insertManager(self, manager):
+        mname = manager.getUname() 
+        user = db.session.query(Euser).filter_by(u_name=mname).all()
+        if user == None: 
+            hashedPass = self.encrypt_password(manager.getPassword())
+            mtype = manager.getType()
+            db.session.add(Euser(mname, hashedPass, mtype))
+            db.session.commit()
+            return "Manager added"
+        else: 
+            return "Manager Wrong"
+    
 
     def encrypt_password(self, password):
         return generate_password_hash(password, method='pbkdf2:sha256')

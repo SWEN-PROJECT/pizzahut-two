@@ -66,12 +66,14 @@ class Item(db.Model):
     item_description = db.Column(db.String(255))
     item_tag = db.Column(db.String(20))
     item_price = db.Column(db.Float(precision=2,asdecimal=False))
+    item_img = db.Column(db.String(255))
 
-    def __init__(self, item_id, item_name, item_description,item_tag,item_price):
+    def __init__(self, item_name, item_description,item_tag,item_price,item_img):
         self.item_name = item_name
         self.item_description = item_description
         self.item_tag = item_tag
-        self.item_price = item_price        
+        self.item_price = item_price    
+        self.item_img = item_img    
 
 
 """Model for the Order Table in the Pizza Hut(2) Database"""

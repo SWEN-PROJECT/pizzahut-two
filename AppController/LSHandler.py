@@ -3,7 +3,7 @@ from app import app, login_manager
 from flask import flash
 from DBManager import UserManager
 from Users import Customers, User
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 
 """Class to handle all UI interactions"""
@@ -45,3 +45,15 @@ class LSHandler():
                 return "F"
         else:
             return "T"
+
+    """Method to handle the signup of a user, return : char"""
+    def loadCustomer(self):
+        manager = UserManager.UserManager()
+        result = manager.queryCustomer(current_user.uid)
+        if (result == None):
+            return "N"
+        else:
+            return result
+
+    
+    
