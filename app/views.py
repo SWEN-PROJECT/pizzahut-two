@@ -110,7 +110,13 @@ def editProfile():
             updateForm = SignupForm()
             handler = LSHandler.LSHandler()
             cUser = handler.loadCustomer()
-
+            
+            if cUser == "N":
+                flash('Unable to load user information', 'danger')
+                return redirect(url_for('editProfile'),form=updateForm)
+            else:
+                return render_template('editprofile.html',form=updateForm, user=cUser.getUname())
+            
             if request.method == 'POST':
                 pass
         except:
@@ -130,7 +136,7 @@ def editProfile():
 #         #except:
 #             #return None
 #   
-    return render_template('editprofile.html',form=updateForm, user=cUser)
+    
 
 
 """Retrieve Item Route"""

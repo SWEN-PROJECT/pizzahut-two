@@ -81,17 +81,18 @@ class UserManager():
 
 
     def insertManager(self, manager):
-        mname = manager.getUname() 
-        user = db.session.query(Euser).filter_by(u_name=mname).all()
-        if user == None: 
+        try:
+            mname = manager.getUname() 
             hashedPass = self.encrypt_password(manager.getPassword())
             mtype = manager.getType()
+            print("Manger")
             db.session.add(Euser(mname, hashedPass, mtype))
             db.session.commit()
             return "Manager added"
-        else: 
-            return "Manager Wrong"
-    
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
+
 
     def encrypt_password(self, password):
         return generate_password_hash(password, method='pbkdf2:sha256')
