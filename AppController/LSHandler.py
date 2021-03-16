@@ -53,6 +53,7 @@ class LSHandler():
         if (result == None):
             return "N"
         else:
+            result.setUname(current_user.u_name)
             return result
 
     

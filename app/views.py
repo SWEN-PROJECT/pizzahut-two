@@ -105,22 +105,33 @@ def menu():
 def editProfile():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-    else:
-        try:
-            updateForm = SignupForm()
-            handler = LSHandler.LSHandler()
-            cUser = handler.loadCustomer()
-            
-            if cUser == "N":
-                flash('Unable to load user information', 'danger')
-                return redirect(url_for('editProfile'),form=updateForm)
-            else:
-                return render_template('editprofile.html',form=updateForm, user=cUser.getUname())
-            
-            if request.method == 'POST':
-                pass
-        except:
+    else: 
+        updateForm = SignupForm()
+        handler = LSHandler.LSHandler()
+        cUser = handler.loadCustomer()
+        
+        if request.method == 'POST':
+            if updateForm.validate_on_submit():
+                updatedCustomer = handler.signupHandle(sform.username.data,sform.password.data,sform.fname.data,sform.lname.data, sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,  sform.email.data)
             pass
+
+        else:
+            if cUser == "N":
+                flash('N', 'danger')
+        return render_template('editprofile.html',form=updateForm, user=cUser)
+            # 
+            #     pass
+            # 
+            #     
+            #         
+            #         #return redirect(url_for('editProfile'))
+            #         return render_template('editprofile.html',form=updateForm)
+            #     else:
+            #         pass
+        # except:
+        #     pass
+            #flash('Unable to load user information', 'danger')
+            #return redirect(url_for('editProfile'))
 #             print(cUser.uname)
 #             """
 #             manager = UserManager.UserManager()
@@ -135,9 +146,7 @@ def editProfile():
 #             #return result
 #         #except:
 #             #return None
-#   
-    
-
+#
 
 """Retrieve Item Route"""
 @app.route('/uploads/<filename>')

@@ -37,9 +37,10 @@ class UserManager():
             if result == []:
                 return None
             result = result[0]
-            return Customers.Customer("","", result.fname, result.lname, result.phone_num, result.street_num, result.street_name, result.town, result.parish, result.email)
-        except:
-            return None 
+            return Customers.Customers("","", result.fname, result.lname, result.phone_num, result.street_num, result.street_name, result.town, result.parish, result.email)
+        except Exception as ex:
+            print("{}".format(ex))
+            return ex
     
     
     """
@@ -79,20 +80,35 @@ class UserManager():
             else: 
                 return "User Wrong"
 
-
+    #add a new manager user to database
     def insertManager(self, manager):
-        try:
+        #MatthewP - admin123try:
             mname = manager.getUname() 
             hashedPass = self.encrypt_password(manager.getPassword())
             mtype = manager.getType()
-            print("Manger")
+            print("Manager")
             db.session.add(Euser(mname, hashedPass, mtype))
             db.session.commit()
             return "Manager added"
+        # except Exception as e:
+        #     print("Error: {}".format(e))
+        #     return None
+        
+    
+    #add a new staff user to the database
+    def insertStaff(self, staff):
+        try:
+        #staffuser - staff123
+            sname = staff.getUname() 
+            hashedPass = self.encrypt_password(staff.getPassword())
+            stype = staff.getType()
+            print("Staff")
+            db.session.add(Euser(sname, hashedPass, stype))
+            db.session.commit()
+            return "Staff added"
         except Exception as e:
             print("Error: {}".format(e))
             return None
-
 
     def encrypt_password(self, password):
         return generate_password_hash(password, method='pbkdf2:sha256')

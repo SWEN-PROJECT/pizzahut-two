@@ -12,31 +12,31 @@
   </div>
   {% include 'flashmssgs.html' %}
   <div class="signup-right">
-    <h1>Edit Profile Information {{uname}}</h1>
+    <h1>Edit Profile Information</h1>
     <h2>Please enter information to create an account.</h2>
     {% include 'flash.html'%}
     <form action="/signup" method="POST">
       {{form.csrf_token }}
       <div class="form-group-row">
-        {{ form.fname(placeholder="d")}} 
+        {{ form.fname(value=user.getName().getFname() ) }} 
         
-        {{ form.lname(placeholder="Last Name")}}
+        {{ form.lname(value = user.getName().getLname() )}}
       </div>
       <div class="form-group">
-        {{ form.username(placeholder="Username")}} {{
-        form.password(placeholder="Password")}}
+        {{ form.username(value = user.getUname() )}} 
+        {{form.password(value = user.getPassword() )}}
       </div>
       <div class="form-group-row">
-        {{ form.email(placeholder="Email")}} {{
-        form.telenum(placeholder="Telephone Number")}}
+        {{ form.email(value = user.getEmail() )}} {{
+        form.telenum(value = user.getTeleNum() )}} 
       </div>
       <div class="form-group-row">
-        {{ form.streetnum(placeholder="Street Number")}} {{
-        form.streetname(placeholder="Street Name")}}
+        {{ form.streetnum(value = user.getAddress().getstreetnum() )}} {{
+        form.streetname(value = user.getAddress().getstreetname() )}}
       </div>
       <div class="form-group">
-        {{ form.town(placeholder="Town")}} {{
-        form.parish(placeholder="Parish")}}
+        {{ form.town(value = user.getAddress().gettown() )}} {{
+        form.parish(value = user.getAddress().getparish() )}}
       </div>
       <button class="btn orange" type="submit">Submit Changes</button>
     </form>

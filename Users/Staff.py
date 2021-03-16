@@ -2,7 +2,14 @@ from . import User
 
 class Staff(User.User):
     def __init__(self, uname, pwd):
-        User.__init__(self, uname, pwd, 'Staff')
+        super().__init__(uname, pwd, 'S')
     
-    def viewOrder(self):
-        return "Needs to be implemented"
+    
+    def getUname(self):
+        return super().getUname()
+
+    def getPassword(self):
+        return super().getPassword()
+
+    def getType(self):
+        return super().getType()
