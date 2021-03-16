@@ -338,15 +338,6 @@ a:link {
   padding: 1.625rem;
 }
 
-.cardset {
-  margin: 2rem auto;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 30% 30% 30%;
-      grid-template-columns: 30% 30% 30%;
-  gap: 3rem;
-}
-
 .card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -397,8 +388,8 @@ a:link {
 
 .card-footer {
   padding: 0.75rem 1.25rem;
-  background-color: #CF6E45;
-  border-top: 1px solid #CF6E45;
+  background-color: #0580C3;
+  border-top: 1px solid #0580C3;
   text-align: center;
 }
 
@@ -408,12 +399,30 @@ a:link {
   font-weight: 500;
 }
 
+img {
+  border-style: none;
+  vertical-align: middle;
+}
+
 .container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.container .card-set {
+  margin: 2rem auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 30% 30% 30%;
+      grid-template-columns: 30% 30% 30%;
+  gap: 3rem;
+}
+
+.card-footer:last-child {
+  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 }
 
 .main {

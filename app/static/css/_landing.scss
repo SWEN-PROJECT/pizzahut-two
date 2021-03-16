@@ -134,12 +134,7 @@ a{
 
 }
 
-.card-set{
-    margin: 2rem auto;
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    gap: 3rem;
-}
+
 
 .card{
     // position: relative;
@@ -180,8 +175,8 @@ a{
 
     &-footer{
         padding: 0.75rem 1.25rem;
-        background-color: $dOrange;
-        border-top: 1px solid $dOrange;
+        background-color: $mBlue;
+        border-top: 1px solid $mBlue;
         text-align: center;
 
         a{
@@ -192,6 +187,10 @@ a{
     }
 }
 
+img{
+    border-style: none;
+    vertical-align: middle;
+}
 
 .container {
     width: 100%;
@@ -199,4 +198,15 @@ a{
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    
+    .card-set{
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    gap: 3rem;
+}
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 }
