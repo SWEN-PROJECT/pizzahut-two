@@ -37,9 +37,9 @@ section {
     .card-holder {
       display: flex;
       flex-direction: column;
-      // a {
-      //   text-decoration: none;
-      // }
+      a{
+        font-size: 18px;
+      }
       .card {
         padding: 20px 10px;
         margin-bottom: 10%;
@@ -49,6 +49,7 @@ section {
         color: $white;
         display: flex;
         align-items: center;
+        flex-direction: row;
         &:hover {
           opacity: 0.75;
         }
