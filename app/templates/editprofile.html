@@ -10,39 +10,32 @@
     <div class="ellipse ellipse2"></div>
     <div class="ellipse ellipse3"></div>
   </div>
-  {% include 'flashmssgs.html' %}
   <div class="signup-right">
     <h1>Edit Profile Information</h1>
     <h2>Please enter information you would like to edit</h2>
     {% include 'flash.html'%}
-
-    <h3>Profile Information</h3>
-    <ol>
-      {% for info in info %}
-        <li>{{ info }}</li>
-      {% endfor %}
-    </ol>
-    <form action="/edit-profile" method="POST">
-      {{form.csrf_token }}
+    <form action="{{ url_for('editProfile')}}" method="POST">
+      {{ form.csrf_token }}
       <div class="form-group">
-        {{ form.opassword(placeholder="Old Password")}} 
-        {{form.npassword(placeholder="New Password")}}
+        {{ form.username(value=info.getUname()) }}
+        {{ form.npassword(placeholder="New Password") }}
+        {{ form.confirm(placeholder="Repeat Password") }}
       </div>
       <div class="form-group-row">
-        {{ form.email(placeholder="Email")}} 
-        {{form.telenum(placeholder="Telephone Number")}}
+        {{ form.email(value=info.getEmail()) }} 
+        {{ form.telenum(value=info.getTeleNum()) }}
       </div>
       <div class="form-group-row">
-        {{ form.streetnum(placeholder="Street Number")}} 
-        {{form.streetname(placeholder="Street Name")}}
+        {{ form.streetnum(value=info.getAddress().getstreetnum()) }} 
+        {{ form.streetname(value=info.getAddress().getstreetname()) }}
       </div>
       <div class="form-group">
-        {{ form.town(placeholder="Town")}} 
-        {{form.parish(placeholder="Parish")}}
+        {{ form.town(value=info.getAddress().gettown()) }} 
+        {{ form.parish(value=info.getAddress().getparish()) }}
       </div>
       <button class="btn orange" type="submit">Submit Changes</button>
     </form>
-    
+
   </div>
 </div>
 <!-- <br><br> -->

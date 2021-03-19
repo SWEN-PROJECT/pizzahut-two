@@ -57,7 +57,7 @@ def signup():
                 return redirect(url_for('login'))
             elif (attempt == "F"): 
                 flash('Account Not Created!', 'danger') 
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('signup'))
             else: flash('Username is taken.', 'danger')
         else:
             #flash error message
@@ -115,37 +115,34 @@ def checkoutCO():
 
 """Edit Profile Method"""
 @login_required
-@app.route("/edit-profile",methods=["GET","POST"])
+@app.route("/edit-profile", methods=["GET","POST"])
 def editProfile():
-    def loaduser():
-        user = session['uname']
-        #session["user"] = user
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else: 
-        username = session['uname']
         handler = LSHandler.LSHandler()
-        cUser = handler.loadCustomer
+        cUser = handler.loadCustomer()
         updateForm = UpdateUserForm()
-        
-        if request.method == 'POST':
-            flash("This is half-sucess", 'success')  
-            if updateForm.validate_on_submit(): 
-                flash("This is sucess", 'success')    
-                if cUser == "N":
-                    flash('N', 'danger')
-                else:
-                    opwd = updateForm.opassword.data
-                    npwd = updateForm.opassword.data
-                    handler.updateUser(cUser[0], updateForm.opassword.data,updateForm.npassword.data, cUser[1], cUser[2], updateForm.streetname.data,updateForm.streetnum.data,updateForm.town.data,updateForm.parish.data,updateForm.telenum.data,  updateForm.email.data)
-                    flash('Account Created!', 'success')
-                    return redirect(url_for('dashboard'))
-            else:
-                flash("This is this", 'danger')
-        else:
-            flash("This is crazy", 'danger')
-        
 
+        if request.method == 'POST':  
+            if updateForm.validate_on_submit():
+                if request.form['npassword'] == '' or request.form['npassword'] == None:
+                    result = handler.updateHandle(request.form['username'],\
+                     '', cUser.getName().getFname(), cUser.getName().getLname(), \
+                         request.form['streetname'], request.form['streetnum'], request.form['town'], \
+                             request.form['parish'], request.form['telenum'],request.form['email'])
+                else:
+                    result = handler.updateHandle(request.form['username'],\
+                     request.form['npassword'], cUser.getName().getFname(), cUser.getName().getLname(), \
+                         request.form['streetname'], request.form['streetnum'], request.form['town'], \
+                             request.form['parish'], request.form['telenum'],request.form['email'])
+                if (result == "S"): 
+                    flash('Account Updated!', 'success')
+                    return redirect(url_for('dashboard'))
+                elif (result == "F"): 
+                    flash('Account Not Updated!', 'danger') 
+                    return redirect(url_for('dashboard'))
+            flash_errors(updateForm)
     return render_template('editprofile.html',form=updateForm, info=cUser)
 
 

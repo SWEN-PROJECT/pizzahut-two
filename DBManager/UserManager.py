@@ -37,58 +37,75 @@ class UserManager():
             if result == []:
                 return None
             result = result[0]
-            return Customers.Customers("","", result.fname, result.lname, result.phone_num, result.street_num, result.street_name, result.town, result.parish, result.email)
+            return Customers.Customers("","", result.fname, result.lname,result.street_name , result.street_num, result.town, result.parish, result.phone_num ,result.email)
         except Exception as ex:
             print("{}".format(ex))
             return ex
     
-    
-    """
-    admin = User.query.filter_by(username='admin').first()
-    admin.email = 'my_new_email@example.com'
-    db.session.commit()
-
-    user = User.query.get(5)
-    user.name = 'New Name'
-    db.session.commit()
-    """
     def insertUser(self, customer):
-            hashedPass = self.encrypt_password(customer.getPassword())
-            
-            db.session.add(Euser(customer.getUname(), hashedPass, customer.getType()))
-            user = db.session.query(Euser).filter_by(u_name=customer.getUname()).all()
+        hashedPass = self.encrypt_password(customer.getPassword())
+        
+        db.session.add(Euser(customer.getUname(), hashedPass, customer.getType()))
+        user = db.session.query(Euser).filter_by(u_name=customer.getUname()).all()
 
-            #name
-            name = customer.getName()
-            fname = name.getFname()
-            lname = name.getLname()
-            #address
-            address = customer.getAddress()
-            streetnum = address.getstreetnum()
-            streetname = address.getstreetname()
-            town = address.gettown()
-            parish = address.getparish()
-            #contact
-            phone = customer.getTeleNum()
-            email = customer.getEmail()
-            #add to customer db
-            db.session.add(Customer(user[0].uid, fname, lname, phone, streetnum, streetname, town, parish, email, 0))
+        #name
+        name = customer.getName()
+        fname = name.getFname()
+        lname = name.getLname()
+        #address
+        address = customer.getAddress()
+        streetnum = address.getstreetnum()
+        streetname = address.getstreetname()
+        town = address.gettown()
+        parish = address.getparish()
+        #contact
+        phone = customer.getTeleNum()
+        email = customer.getEmail()
+        #add to customer db
+        db.session.add(Customer(user[0].uid, fname, lname, phone, streetnum, streetname, town, parish, email, 0))
+        db.session.commit()
+
+        if user != None:
+            return "User added"
+        else: 
+            return "User Wrong"
+
+    """
+    Method to handle updating a user
+        parameters : uid : int , customer : Customer Object
+        return : 
+    """
+    def updateUser(self, uid, customer):
+        try:
+            result = db.session.query(Customer).get(uid)
+            user = db.session.query(Euser).get(uid)
+
+            if result == [] or result == None:
+                raise Exception("Query returned something empty")
+            elif user == [] or result == None:
+                raise Exception("Query returned something empty")
+            
+            # Update User Information associated with Customer 
+            user.u_name = customer.getUname()
+            if customer.getPassword() != "":
+                user.password = self.encrypt_password(customer.getPassword())
+
+            # Update Customer Information
+            result.fname = customer.getName().getFname()
+            result.lname = customer.getName().getLname()
+            result.street_name = customer.getAddress().getstreetname()
+            result.street_num = customer.getAddress().getstreetnum()
+            result.town = customer.getAddress().gettown()
+            result.parish = customer.getAddress().getparish()
+            result.email = customer.getEmail()
+            result.phone_num = customer.getTeleNum()
+            
             db.session.commit()
 
-            if user != None:
-                return "User added"
-            else: 
-                return "User Wrong"
-
-    """Method to handle updating a user
-        parameters : (self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email
-        return : char"""
-    def updateUser(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
-        user = db.session.query(Euser).filter_by(u_name=customer.getUname()).all()
-        customer = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
-        #db.session.add(customer)
-        
-        db.session.commit()
+            return 'A'
+        except Exception as ex:
+            print("{}".format(ex))
+            return ex
 
     #add a new manager user to database
     def insertManager(self, manager):
@@ -131,5 +148,5 @@ class UserManager():
         return temp
     
     def createcust(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
-        cust = Customers.Customer(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
+        cust = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
         return cust

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, IntegerField, TextField, FloatField, FileField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, EqualTo, InputRequired
 from flask_wtf.file import FileField,FileRequired,FileAllowed 
 
 class LoginForm(FlaskForm):
@@ -20,14 +20,15 @@ class SignupForm(FlaskForm):
     email = TextField('Email', validators=[DataRequired(), Email()])
 
 class UpdateUserForm(FlaskForm):
-    opassword = PasswordField("Old Password")
-    npassword = PasswordField("New Password")
-    streetname = StringField("Street Name")
-    streetnum = IntegerField("Street Number")
-    town = StringField("Town")
-    parish = StringField("Parish")
-    telenum = IntegerField("Telephone Number")
-    email = TextField('Email')
+    username = StringField("Username", validators = [DataRequired()])
+    npassword = PasswordField("New Password", validators=[EqualTo('confirm', message='Passwords must match')])
+    confirm = PasswordField("Repeat Password")
+    streetname = StringField("Street Name", validators=[InputRequired()])
+    streetnum = IntegerField("Street Number", validators=[InputRequired()])
+    town = StringField("Town", validators=[InputRequired()])
+    parish = StringField("Parish", validators=[InputRequired()])
+    telenum = IntegerField("Telephone Number", validators=[InputRequired()])
+    email = TextField('Email', validators=[InputRequired()])
 
 class ItemForm(FlaskForm):
     name = StringField("Name", validators = [DataRequired()])
