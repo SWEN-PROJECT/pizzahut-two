@@ -1,14 +1,15 @@
 import os
 from flask_wtf import form
 from app import app, login_manager
-from flask import render_template, url_for, redirect, flash, request, session, send_from_directory
+from flask import render_template, url_for, redirect, flash, request, session, send_from_directory, jsonify
 from flask_login import logout_user, current_user, login_required
-from .forms import LoginForm, SignupForm, ItemForm
-from AppController import LSHandler, MenuHandler
+from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm
+from AppController import LSHandler, MenuHandler, OrderHandler
 from app.models import Euser
 from werkzeug.utils import secure_filename
 from DBManager import UserManager
 from Users import User
+from flask import session
 
 @app.route("/")
 def landing():
@@ -98,61 +99,57 @@ def menu():
             items = ctrl.viewHandle()
     return render_template('menu.html', items=items, type=current_user.u_type, edit_form = iform)
 
+"""Update Current Order"""
+@app.route('/menu/<itemID>', methods=['POST', 'GET'])
+def updateCO(itemID):
+    handler = OrderHandler.OrderHandler()
+    result = handler.addToOrder(itemID)
+    return jsonify({ 'len' :  result })
 
 """Edit Profile Method"""
 @login_required
-@app.route("/edit-profile")
+@app.route("/edit-profile",methods=["GET","POST"])
 def editProfile():
+    def loaduser():
+        user = session['uname']
+        #session["user"] = user
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else: 
-        updateForm = SignupForm()
+        username = session['uname']
         handler = LSHandler.LSHandler()
-        cUser = handler.loadCustomer()
+        cUser = handler.loadCustomer
+        updateForm = UpdateUserForm()
         
         if request.method == 'POST':
-            if updateForm.validate_on_submit():
-                updatedCustomer = handler.signupHandle(sform.username.data,sform.password.data,sform.fname.data,sform.lname.data, sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,  sform.email.data)
-            pass
-
+            flash("This is half-sucess", 'success')  
+            if updateForm.validate_on_submit(): 
+                flash("This is sucess", 'success')    
+                if cUser == "N":
+                    flash('N', 'danger')
+                else:
+                    opwd = updateForm.opassword.data
+                    npwd = updateForm.opassword.data
+                    handler.updateUser(cUser[0], updateForm.opassword.data,updateForm.npassword.data, cUser[1], cUser[2], updateForm.streetname.data,updateForm.streetnum.data,updateForm.town.data,updateForm.parish.data,updateForm.telenum.data,  updateForm.email.data)
+                    flash('Account Created!', 'success')
+                    return redirect(url_for('dashboard'))
+            else:
+                flash("This is this", 'danger')
         else:
-            if cUser == "N":
-                flash('N', 'danger')
-        return render_template('editprofile.html',form=updateForm, user=cUser)
-            # 
-            #     pass
-            # 
-            #     
-            #         
-            #         #return redirect(url_for('editProfile'))
-            #         return render_template('editprofile.html',form=updateForm)
-            #     else:
-            #         pass
-        # except:
-        #     pass
-            #flash('Unable to load user information', 'danger')
-            #return redirect(url_for('editProfile'))
-#             print(cUser.uname)
-#             """
-#             manager = UserManager.UserManager()
-#             temp = User.User(session["uname"])
-#             result = manager.queryUser(temp)
+            flash("This is crazy", 'danger')
+        
 
-#             result = db.session.query(Euser).filter_by(u_name=user.getUname()).all()
-#             if result == []:
-#                 return None
-#             result = result[0]
-#             print(result)
-#             #return result
-#         #except:
-#             #return None
-#
+    return render_template('editprofile.html',form=updateForm, info=cUser)
 
-"""Retrieve Item Route"""
+
+
+"""Retrieve Image Route"""
 @app.route('/uploads/<filename>')
 def get_image(filename):
     rootdir = os.getcwd()
     return  send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']),filename)
+
+
 
 @app.after_request
 def add_header(response):

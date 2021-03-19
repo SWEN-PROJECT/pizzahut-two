@@ -53,8 +53,24 @@ class LSHandler():
         if (result == None):
             return "N"
         else:
-            result.setUname(current_user.u_name)
-            return result
+            uname = result.getUname()
+            #name
+            name = result.getName()
+            fname = name.getFname()
+            lname = name.getLname()
+            #address
+            address = result.getAddress()
+            streetnum = address.getstreetnum()
+            streetname = address.getstreetname()
+            town = address.gettown()
+            parish = address.getparish()
+            #contact
+            phone = result.getTeleNum()
+            email = result.getEmail()
 
-    
-    
+            return [uname, fname, lname, streetnum, streetname, town, parish, phone, email]
+
+    def updateUser(self, uname, opwd, npwd, fname, lname, streetname, streetnum, town, parish, tele, email):
+        manager = UserManager.UserManager()
+        updated = manager.updateUser(uname, opwd, npwd, fname, lname, streetname, streetnum, town, parish, tele, email)
+        # return updated

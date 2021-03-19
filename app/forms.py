@@ -19,9 +19,20 @@ class SignupForm(FlaskForm):
     telenum = IntegerField("Telephone Number", validators = [DataRequired()])
     email = TextField('Email', validators=[DataRequired(), Email()])
 
+class UpdateUserForm(FlaskForm):
+    opassword = PasswordField("Old Password")
+    npassword = PasswordField("New Password")
+    streetname = StringField("Street Name")
+    streetnum = IntegerField("Street Number")
+    town = StringField("Town")
+    parish = StringField("Parish")
+    telenum = IntegerField("Telephone Number")
+    email = TextField('Email')
+
 class ItemForm(FlaskForm):
     name = StringField("Name", validators = [DataRequired()])
     price= FloatField("Price", validators = [DataRequired()])
     tag = SelectField("Tag", choices=[('Pizza', 'Pizza'), ('Beverage', 'Beverage'),('Side', 'Side'), ('Crust','Crust'), ('Topping','Topping') ])
     description = TextAreaField("Descripton", validators = [DataRequired()])
     image= FileField("Image", validators=[FileRequired(), FileAllowed(['jpg','png'])])
+

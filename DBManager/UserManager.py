@@ -80,6 +80,16 @@ class UserManager():
             else: 
                 return "User Wrong"
 
+    """Method to handle updating a user
+        parameters : (self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email
+        return : char"""
+    def updateUser(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
+        user = db.session.query(Euser).filter_by(u_name=customer.getUname()).all()
+        customer = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
+        #db.session.add(customer)
+        
+        db.session.commit()
+
     #add a new manager user to database
     def insertManager(self, manager):
         #MatthewP - admin123try:

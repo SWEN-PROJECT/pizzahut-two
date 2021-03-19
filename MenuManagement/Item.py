@@ -31,25 +31,21 @@ class Item:
         return self.quan
 
 
-    #@Name.setter
     def setName(self, name):
         self.name = name
 
-    #@Type.setter
     def setType(self, itype):
         self.itype = itype
 
-    #@num.setter
     def setnum(self, num):
         self.num = num
 
-    #@Price.setter
     def setPrice(self, price):
         self.price = price
-    #@imagename.setter
+
     def setImagename(self, imagename):
         self.imangname = imangname
-    #@Qty.setter
+
     def setQty(self, quan):
         self.quan = quan
 

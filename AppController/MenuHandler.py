@@ -15,7 +15,7 @@ class MenuHandler():
     
     def itemobjectify(self, lst):
         result = []
-        for i in lst:
+        for i in lst:           
             result.append(Item.Item(i.item_name, i.item_description, i.item_tag, i.item_price, i.item_img, i.item_id))
         return result
     

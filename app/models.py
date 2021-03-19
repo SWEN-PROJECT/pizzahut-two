@@ -93,3 +93,13 @@ class Order(db.Model):
         self.tag = tag
         self.checkout =checkout 
 
+
+class Item_List(db.Model):
+    order_num = db.Column(db.Integer, db.ForeignKey('order.order_num'), primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
+    quantity = db.Column (db.Integer)
+    
+    def __init__(self, order_num, item_id , quantity):
+        self.order_num = order_num
+        self.item_id = item_id 
+        self.quantity = quantity 
