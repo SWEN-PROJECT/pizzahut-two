@@ -1,4 +1,3 @@
-from MenuManagement.Order import Order
 import os
 from flask_wtf import form
 from app import app, login_manager
@@ -10,7 +9,6 @@ from app.models import Euser
 from werkzeug.utils import secure_filename
 from DBManager import UserManager
 from Users import User
-from flask import session
 from .globals import order_handler
 
 @app.route("/")
