@@ -1,15 +1,17 @@
+from MenuManagement.Order import Order
 import os
 from flask_wtf import form
 from app import app, login_manager
 from flask import render_template, url_for, redirect, flash, request, session, send_from_directory, jsonify
 from flask_login import logout_user, current_user, login_required
 from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm
-from AppController import LSHandler, MenuHandler, OrderHandler
+from AppController import LSHandler, MenuHandler
 from app.models import Euser
 from werkzeug.utils import secure_filename
 from DBManager import UserManager
 from Users import User
 from flask import session
+from .globals import order_handler
 
 @app.route("/")
 def landing():
@@ -102,9 +104,16 @@ def menu():
 """Update Current Order"""
 @app.route('/menu/<itemID>', methods=['POST', 'GET'])
 def updateCO(itemID):
-    handler = OrderHandler.OrderHandler()
-    result = handler.addToOrder(itemID)
-    return jsonify({ 'len' :  result })
+    global order_handler
+    result = order_handler.addToOrder(itemID)
+    return f"{result}"
+
+"""Checkout Current Order"""
+@app.route('/menu/checkout', methods=['POST', 'GET'])
+def checkoutCO():
+    global order_handler
+    result = order_handler.checkout()
+    return result
 
 """Edit Profile Method"""
 @login_required

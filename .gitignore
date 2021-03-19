@@ -7,8 +7,6 @@ Thumbs.db
 
 ##Python Cache Files
 __pycache__
-app/__pycache__/__init__.cpython-38.pyc
-app/__pycache__/views.cpython-38.pyc
 
 ### Virtual Environment 
 .venv/

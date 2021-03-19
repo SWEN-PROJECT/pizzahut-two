@@ -11,16 +11,31 @@ window.onload = function(event){
             fetch(`/menu/${data}`)
                 .then(response => response.text())
                 .then(datar => {
-                    console.log(datar);
                     let checkout = document.querySelector(".checkout");
-                    console.log(checkout);
-                    // checkout.textContent = `Checkout(${datar})`;
+                    checkout.textContent = `Checkout(${datar})`;
                 })
                 .catch(error => {
                     console.log(error);
                 });
         });
 
+    });
+
+    let checkout = document.querySelector(".checkout");
+
+    checkout.addEventListener('click', (event) => {
+        event.preventDefault();
+        fetch(`/menu/checkout`)
+            .then(response => response.text())
+            .then(receive => {
+                if( receive  == 'NOWM'){
+                }else{
+                    checkout.textContent = 'Checkout';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     });
     
 };

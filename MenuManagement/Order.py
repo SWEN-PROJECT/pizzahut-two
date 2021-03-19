@@ -1,23 +1,25 @@
-from MenuManagement.Item import Item
-
 class Order():
 
     def __init__(self):
        self.item_list = []
        self.distinct = []
-       self.length = len(self.item_list)
 
     def addItem(self, item):
         if item in self.distinct:
             self.distinct.append(item)
         self.item_list.append(item)
-        self.length = len(self.item_list)
 
     def getOrder(self):
         return self.item_list
-    
+
     def getLength(self):
-        return int(self.length)
+        return len(self.item_list)
+
+class Orders(dict):
+
+    def __init__(self, obj):
+        dict.__init__(self, items=obj.item_list, lst=obj.distinct, length=len(obj.item_list))
+    
     
     # def getItem(self, num):
     #     for item in self.item_list:
