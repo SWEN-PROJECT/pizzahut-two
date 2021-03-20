@@ -1,53 +1,57 @@
 from app import db
 from app.models import Order, Item_List, Item
-from Users import User, Customers
 
 class OrderManager():
 
     def __init__(self):
         pass
 
-    # def getModel(self, user):
-    #     try:
-    #         result = db.session.query(Item).all()
-    #         if result == []:
-    #             return None
-    #         result = result[0]
-    #         return result
-    #     except:
-    #         return None 
 
-    # def queryUser(self, user):
+    # """
+    #     Method queries the Database for Information for specific Items contained in the Item List
+    #     paramters: item_list : Collection Of Item Objects
+    #     returns : item_list : Modified Versio of the Collection of Item Objects 
+    # """
+    # def buildOrderItems(item_list):
     #     try:
-    #         result = db.session.query(Order).all()
-    #         if result == []:
-    #             return None
-    #         result = result[0]
-    #         return User.User(result.u_name, result.password, result.u_type)
-    #     except:
-    #         return None 
-    
-    
-
-    # def queryOrder(self, id):
-    #     try:
-    #         result = db.session.query(Order).all()
-    #         if result == []:
-    #             return None
-    #         result = result[0]
-    #         return Customers.Customers("","", result.fname, result.lname, result.phone_num, result.street_num, result.street_name, result.town, result.parish, result.email)
+    #         for i in item_list:
+    #             query = db.session.query(Item).get(i.getNum())
+    #             if query == [] or query == None:
+    #                 pass
+    #             else:
+    #                 i.setPrice(query.item_price)
+    #                 i.setDescription(query.item_description)
+    #                 i.setType(query.item_tag)
+    #                 i.setName(query.item_name)
+    #                 i.setImagename(query.item_img)
+    #                 i.setType(query.item_tag)
+    #         return item_list
     #     except Exception as ex:
     #         print("{}".format(ex))
     #         return ex
     
-    # def insertOrder(self, order):
-    #         order = db.session.query(Order).all()
-    #         db.session.add(Order())
+    # """
+    #     Method creates a New Order in the Database and Adds the Item in the List to Item List
+    #     paramters: item_list : Collection Of Item Objects, order : Order object
+    #     returns : String if Sucessful, Exception if Unsucessful 
+    # """
+    # def insertOrder(self, item_list, order):
+    #     try:
+    #         new_order = Order('Date Created', order.getTotal(), order.getStatus(), order.getCheckoutType())
+    #         db.session.add(new_order)
+
+    #         oquery = db.session.query(Order).all()
+    #         if oquery == [] or oquery == None:
+    #             raise Exception("Query returned something empty")
+    #         oquery = oquery[-1]
+
+    #         for i in item_list:
+    #             temp = Item_List(oquery.order_num, i.getNum(), i.getQty())   
+
     #         db.session.commit()
-
-    #         if user != None:
-    #             return "User added"
-    #         else: 
-    #             return "User Wrong"
-
+    #         return 'Success'
+    #     except Exception as ex:
+    #         print("{}".format(ex))
+    #         return ex
+    
     

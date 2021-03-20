@@ -14,23 +14,12 @@ class Order():
 
     def getLength(self):
         return len(self.item_list)
+    
+    def getTotal():
+        pass
 
-class Orders(dict):
+    def getStatus():
+        pass
 
-    def __init__(self, obj):
-        dict.__init__(self, items=obj.item_list, lst=obj.distinct, length=len(obj.item_list))
-    
-    
-    # def getItem(self, num):
-    #     for item in self.item_list:
-    #         if item.getNum() == num:
-    #             return item
-    #     return None
-    
-    # def setQuantity(self, num):
-    #     item = self.getItem(num)
-    #     # if item == None:
-    #     #     self.item_list.append()
-    #     item.setQty(item.getQty() + 1)
-        
- #write a function that query the item db for the_
+    def getCheckoutType():
+        pass

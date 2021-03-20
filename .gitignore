@@ -19,3 +19,4 @@ venv/
 env.txt
 .env.txt
 
+uploads/

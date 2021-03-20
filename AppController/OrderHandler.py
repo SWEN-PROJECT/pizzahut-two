@@ -8,18 +8,28 @@ class OrderHandler():
         self.current_order = None
 
     def addToOrder(self, itemid):
-        # session.pop('currentOrder', None)
         if self.current_order ==  None:
             self.current_order = Order.Order()
             self.current_order.addItem(itemid)
         else:
             self.current_order.addItem(itemid)
-        # print(self.current_order.item_list)
         return self.current_order.getLength()
 
     def checkout(self):
         if self.current_order == None:
             return 'NOWM'
         else:
+            # item_list = self.normalize(self.current_order.getOrder())
+            # manager = OrderManager.OrderManager()
+            # manager.insertOrder(item_list)
             self.current_order = None
             return 'CHCK'
+    
+    # def normalize(self, lst):
+    #     seen = []
+    #     result = []
+    #     for i in lst:
+    #         if i not in seen:
+    #             quantity = lst.count(i)
+    #             result.append(Item.Item('', '', '', '','', i, quantity))
+    #     return result

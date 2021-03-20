@@ -34,6 +34,9 @@ class Item:
     def setName(self, name):
         self.name = name
 
+    def setDescription(self, description):
+        self.description = description
+        
     def setType(self, itype):
         self.itype = itype
 
@@ -44,7 +47,7 @@ class Item:
         self.price = price
 
     def setImagename(self, imagename):
-        self.imangname = imangname
+        self.imagename = imagename
 
     def setQty(self, quan):
         self.quan = quan
