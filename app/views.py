@@ -80,6 +80,10 @@ def dashboard():
 def menu():
     if not current_user.is_authenticated:
         return redirect(url_for('landing'))
+    # elif item_list != []:
+    #     ctrl = MenuHandler.MenuHandler()
+    #     items = ctrl.viewHandle()
+    #     return render_template('menu.html', items=items, lst=item_list, type=current_user.u_type)
     else:
         iform = ItemForm()
         ctrl = MenuHandler.MenuHandler()
@@ -144,8 +148,6 @@ def editProfile():
                     return redirect(url_for('dashboard'))
             flash_errors(updateForm)
     return render_template('editprofile.html',form=updateForm, info=cUser)
-
-
 
 """Retrieve Image Route"""
 @app.route('/uploads/<filename>')

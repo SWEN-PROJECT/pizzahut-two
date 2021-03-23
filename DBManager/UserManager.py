@@ -77,9 +77,8 @@ class UserManager():
     """
     def updateUser(self, uid, customer):
         try:
-            result = db.session.query(Customer).get(uid)
             user = db.session.query(Euser).get(uid)
-
+            result = db.session.query(Customer).filter_by(uid=uid).first()
             if result == [] or result == None:
                 raise Exception("Query returned something empty")
             elif user == [] or result == None:

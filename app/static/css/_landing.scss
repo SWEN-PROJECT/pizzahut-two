@@ -187,6 +187,13 @@ a{
         font-weight: 500;
         }
     }
+
+    svg{
+        margin-left: 570px;
+        &:hover{
+            cursor: pointer;
+            }
+    }
 }
 
 img{
@@ -212,3 +219,31 @@ img{
 .card-footer:last-child {
     border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 }
+
+.confirm{
+    background-color: $white;
+    position: absolute;
+    margin: 0 auto;
+    border-radius: 3px;
+    width: 40rem;
+    height: 30rem;
+    transform: translate(38%);
+    font-weight: 900px;
+
+    a {
+      &:hover {
+        opacity: 0.75;
+        transition: all 300ms ease-in-out;
+        cursor: pointer;
+      }
+    }
+}
+
+.back {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: linear-gradient($cultured, transparent);
+  }

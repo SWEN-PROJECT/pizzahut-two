@@ -68,6 +68,10 @@ body {
   font-weight: 300;
 }
 
+body.notscroll {
+  overflow: hidden;
+}
+
 .header {
   position: relative;
   -webkit-box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.08);
@@ -401,6 +405,14 @@ a:link {
   font-weight: 500;
 }
 
+.card svg {
+  margin-left: 570px;
+}
+
+.card svg:hover {
+  cursor: pointer;
+}
+
 img {
   border-style: none;
   vertical-align: middle;
@@ -425,6 +437,35 @@ img {
 
 .card-footer:last-child {
   border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+}
+
+.confirm {
+  background-color: #ffffff;
+  position: absolute;
+  margin: 0 auto;
+  border-radius: 3px;
+  width: 40rem;
+  height: 30rem;
+  -webkit-transform: translate(38%);
+          transform: translate(38%);
+  font-weight: 900px;
+}
+
+.confirm a:hover {
+  opacity: 0.75;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.back {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(transparent));
+  background-image: linear-gradient(#F5F5F5, transparent);
 }
 
 .login-right {
