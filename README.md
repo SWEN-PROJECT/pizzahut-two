@@ -10,15 +10,15 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 - Dashboard (Customer and Manager)
 - View Menu
 - Add Staff Member
+- Order Complete
+- Make Order
 
 ## Pages to be Completed
 
 - Edit Menu
 - Generate Report
-- Make Order
 - View Profile (Optional)
 - Pop Up Forms
-- Order Complete
 
 ## Functionality to Implement
 
