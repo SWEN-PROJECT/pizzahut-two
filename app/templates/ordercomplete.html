@@ -1,20 +1,32 @@
 {% extends 'base.html' %} 
 
-{% block main%}
-<h1>Order Complete!</h1>
 
-<div class="conatin">
+{% block main%}
+<h1 class="oc pads pads-ptb">Order Complete!</h1>
+
+<div class="container contain pads">
     <div class="left">
-        <div class="card">
+        <div class="card card-g">
             <div class="card-body">
-                <h5 class="card-title"></h5>
-                <div class="item-info"></div>
+                <h3 class="oc card-title">Your Order</h3>
+                <div class="item-info">
+                    {% for i in items %}
+                        <div class="cell">
+                            <p>{{i.getName()}}</p>
+                            <p>{{i.getQty() * i.getPrice()}}</p>
+                        </div>
+                    {% endfor %}
+                    <h3 class="oc card-title"> ${{ order.getTotal()}} </h3>
+                </div>
             </div>
             <div class="card-footer">
-                <a href="{{ url_for('dashboard')}}"></a>
+                <a href="{{ url_for('dashboard')}}">Back to Dashboard</a>
             </div>
         </div>
     </div>
-    <div class="right"></div>
+    <div class="right">
+        <img src="{{ url_for('static', filename = 'img/confirm.svg') }}" alt="happy-lady" class="order-made">
+    </div>
 </div>
+<br>
 {% endblock %}

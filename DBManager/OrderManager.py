@@ -1,5 +1,5 @@
 from app import db
-from app.models import Order, Item_List, Item, Customer
+from app.models import Order, ItemList, Item, Customer
 from datetime import date
 
 class OrderManager():
@@ -37,7 +37,7 @@ class OrderManager():
     # """
     def insertOrder(self, item_list, order):
         try:
-            new_order = Order(date.today(), order.getTotal(), order.getStatus(), order.getCheckoutType())
+            new_order = Order(date.today(), order.getCID(), order.getTotal(), order.getStatus(), order.getCheckoutType())
             db.session.add(new_order)
 
             oquery = db.session.query(Order).all()
@@ -46,21 +46,36 @@ class OrderManager():
             oquery = oquery[-1]
 
             for i in item_list:
-                temp = Item_List(oquery.order_num, i.getNum(), i.getQty())   
-
+                temp = ItemList(oquery.order_num, i.getNum(), i.getQty()) 
+                db.session.add(temp)  
             db.session.commit()
             return 'Success'
         except Exception as ex:
             print("{}".format(ex))
             return ex
 
-    def updateRP(self, customerID, gainedrp):
+    def getRecentOrder(self, id):
         try:
-           result = db.session.query(Customer).filter_by(uid=customerID).first()
-           rp = result.rewards_points + gainedrp
-           result.rewards_points = rp
-           db.session.commit()
-           return "Added"
+
+            oquery =  db.session.query(Order).filter_by(uid=id).all()
+            if oquery == [] or oquery == None:
+                raise Exception("Query returned something empty")
+            oquery = oquery[-1]
+            onum = oquery.order_num
+
+            item_qty = db.session.query(ItemList).filter_by(order_num=onum).all()
+            if item_qty == [] or item_qty == None:
+                raise Exception("Query returned something empty")
+
+            result = []
+
+            for i in item_qty:
+                temp = db.session.query(Item).filter_by(item_id=i.item_id).first()
+                if temp == [] or temp == None:
+                    raise Exception("Query returned something empty")
+                result.append({ 'name': temp.item_name, 'qty': i.quantity, 'price': temp.item_price})
+
+            return {'item_list': result, 'order': oquery}
         except Exception as ex:
             print("{}".format(ex))
-            return ex
+            return []

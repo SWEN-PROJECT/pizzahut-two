@@ -1,11 +1,12 @@
 class Order():
 
-    def __init__(self):
+    def __init__(self, uid = 0):
        self.item_list = []
        self.distinct = []
        self.total = 0
        self.status = 'Pending'
        self.checkoutType = None
+       self.cid = uid
 
     def addItem(self, item):
         if item in self.distinct:
@@ -29,6 +30,12 @@ class Order():
 
     def getStatus(self):
         return self.status
+        
+    def setStatus(self, stat):
+        self.status = stat
+
+    def getCID(self):
+        return self.cid
 
     def getCheckoutType(self):
         return self.checkoutType

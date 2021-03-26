@@ -11,6 +11,25 @@ class MenuHandler():
         if result==None:
             item = Item.Item( name, description, tag, price, imagename)
             itemadd = manager.addItem(item)
+            if itemadd == "Item Added":
+                return "S"
+            else:
+                return "F"
+        else:
+            return "C"
+
+    def editHandle(self,itemid, name, price, tag, description, imagename):
+        manager = MenuManager.MenuManager()
+        result = manager.queryItem(itemid)
+        if result==None:
+            item = Item.Item( name, description, tag, price, imagename)
+            itemadd = manager.editItem(itemid, item)
+            if itemadd == "Item Edited":
+                return "S"
+            else:
+                return "F"
+        else:
+            return "C"
 
     
     def itemobjectify(self, lst):

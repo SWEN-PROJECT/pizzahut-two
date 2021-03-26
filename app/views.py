@@ -75,33 +75,38 @@ def dashboard():
 	return render_template('dashboard.html', type=current_user.u_type)
 
 """Get Menu Method"""
-@app.route("/menu")
+@app.route("/menu", methods=['POST', 'GET'])
 @login_required
 def menu():
     if not current_user.is_authenticated:
         return redirect(url_for('landing'))
-    # elif item_list != []:
-    #     ctrl = MenuHandler.MenuHandler()
-    #     items = ctrl.viewHandle()
-    #     return render_template('menu.html', items=items, lst=item_list, type=current_user.u_type)
     else:
-        iform = ItemForm()
+        form = ItemForm()
         ctrl = MenuHandler.MenuHandler()
+        items = ctrl.viewHandle()
         if request.method == 'POST':
-            if iform.validate_on_submit():
-                #saves the file to the uploads folder 
-                image = form.image.data
-                imagename = secure_filename(image.filename)
-                image.save(os.path.join(app.config['UPLOAD_FOLDER'], imagename))
+            if form.validate_on_submit():
+                name = request.form.get("name")
+                price = request.form.get("price")
+                tag = request.form.get("tag")
+                description = request.form.get("description")
 
-                attempt = ctrl.MenuHandler(iform.name.data, iform.price.data, iform.tag.data, iform.description.data, imagename)
-                results = ctrl.addItem()
-                flash('Item Successfully Added Saved', 'success')
+                photo = request.files.get("image")
+                imagename = secure_filename(photo.filename)
+                photo.save(os.path.join(app.config['UPLOAD_FOLDER'], imagename))
+
+                attempt = ctrl.addHandle(name, price, tag, description, imagename)
+
+                if (attempt == "S"): 
+                    flash('Item Successfully Added Saved', 'success')
+                    return redirect(url_for('menu'))
+                elif (attempt == "F"): 
+                    flash('Item Not Added', 'danger') 
+                    return redirect(url_for('menu'))
+                else: flash('Item name is taken.', 'danger')
                 return redirect(url_for('menu'))
-            flash_errors(form)
-        else:
-            items = ctrl.viewHandle()
-    return render_template('menu.html', items=items, type=current_user.u_type, edit_form = iform)
+            else:  flash_errors(form)
+    return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form)
 
 """Update Current Order"""
 @app.route('/menu/<itemID>', methods=['POST', 'GET'])
@@ -123,13 +128,20 @@ def confirmCO():
     global order_handler
     if request.method == 'POST':
         result = order_handler.confirm(request.form.get('type'))
-        if result == 'OK':
-            flash('Order Completed', 'success')
-            return redirect(url_for('dashboard'))
-        else:
-            flash('Order Not Completed', 'danger')
-            return redirect(url_for('dashboard'))
+        return f'{result}'
     return "Order Not Confirmed"
+
+
+@app.route('/complete', methods=['POST', 'GET'])
+@login_required
+def order_complete():
+    global order_handler
+    result = order_handler.completion()
+    if result != None:
+        return render_template('ordercomplete.html', order=result[0], items=result[1])
+    else: 
+        flash('Order not confirmed.', 'danger')
+        return render_template('ordercomplete.html', order='NOK', items='NOK')
 
 """Edit Profile Method"""
 @login_required

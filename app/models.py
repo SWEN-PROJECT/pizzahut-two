@@ -84,20 +84,19 @@ class Order(db.Model):
     order_num = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_create = db.Column(db.DateTime, default = datetime.now(timezone))    
     uid = db.Column(db.Integer, db.ForeignKey('euser.uid'))
-    # item_list = db.Column(db.String(250))
     total_price = db.Column(db.Float(precision=2,asdecimal=False))
     tag = db.Column(db.String(10))
     checkout = db.Column(db.String(10))
 
-    def __init__(self,date_create, total_price,tag,checkout):
+    def __init__(self,date_create, uid , total_price,tag,checkout):
         self.date_create = date_create
-        # self.item_list = item_list 
+        self.uid = uid
         self.total_price = total_price 
         self.tag = tag
         self.checkout =checkout 
 
 
-class Item_List(db.Model):
+class ItemList(db.Model):
     order_num = db.Column(db.Integer, db.ForeignKey('cust_order.order_num'), primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
     quantity = db.Column (db.Integer)

@@ -43,6 +43,7 @@ window.onload = function(event){
         fetch(`/menu/checkout`)
             .then(response => response.json())
             .then(receive => {
+            
                 let lst = receive.list
                 if( lst == 'NOWM'){
 
@@ -92,7 +93,17 @@ window.onload = function(event){
             .then(received => {
                     if( received == 'OK'){
                         checkout.textContent = 'Checkout';
+                        if (confirms.classList.contains('open')){
+                            body.classList.remove("notscroll");
+                            confirms.classList.remove('open');
+                            fades.forEach(function(element){
+                                element.classList.remove('fade-in');
+                                element.classList.add('fade-out');
+                            })
+                        }
+                        window.location.href = '/complete';
                     }
+                    
                 })
                 .catch(error => {
                     console.log(error);

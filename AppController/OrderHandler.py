@@ -12,7 +12,7 @@ class OrderHandler():
 
     def addToOrder(self, itemid):
         if self.current_order ==  None:
-            self.current_order = Order.Order()
+            self.current_order = Order.Order(current_user.uid)
             self.current_order.addItem(itemid)
         else:
             self.current_order.addItem(itemid)
@@ -83,3 +83,21 @@ class OrderHandler():
             return "Y"
         else:
             return "N"
+
+    def completion(self):
+        result = self.manager.getRecentOrder(current_user.uid)
+        if result != []:    
+            order = self.buildOrder(result['order'])
+            items = []
+            for i in result['item_list']:
+                items.append(Item.Item(i.get('name'), '', '', i.get('price'), '', quan=i.get('qty')))
+            return (order, items)
+        else:
+            return None
+
+    def buildOrder(self, order):
+        obj = Order.Order(current_user.uid)
+        obj.setTotal(order.total_price)
+        obj.setCheckoutType(order.checkout)
+        obj.setStatus(order.tag)
+        return  obj
