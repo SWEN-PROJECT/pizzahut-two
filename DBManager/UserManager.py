@@ -148,3 +148,11 @@ class UserManager():
     def createcust(self, uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email):
         cust = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
         return cust
+
+    def updateRP(self, id, gained):
+        result = db.session.query(Customer).filter_by(uid=id).first()
+        rp = result.rewards_points + gained
+        result.rewards = rp
+        db.session.merge(result)
+        db.session.commit()
+        return "Points Added"

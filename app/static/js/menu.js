@@ -51,7 +51,7 @@ window.onload = function(event){
                     let section = document.querySelector('.order-info');
                     let result = "";
                     for(i = 0; i < lst.length; i++){
-                        result += `<div class="items"> <p>${i+1} ${lst[i].name}</p> <p>${lst[i].qty}</p> <p>${lst[i].price}</p></div>`;
+                        result += `<div class="cell"> <p>${i+1} ${lst[i].name}</p> <p>${lst[i].qty}</p> <p>${lst[i].price}</p></div>`;
                     }
                     section.innerHTML = result;
                 }

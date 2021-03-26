@@ -49,3 +49,16 @@ class MenuHandler():
                 return objects
             except:
                 return "N"
+    
+    def deleteHandle(self, itemid):
+        manager = MenuManager.MenuManager()
+        result = manager.deleteItem(itemid)
+        if (result == "Item deleted") :
+            print("s")
+            return "S"
+        elif (result == "Item deleted") :
+            print("c")
+            return "C"
+        else:
+            print("f")
+            return "F"

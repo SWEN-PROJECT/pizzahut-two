@@ -1,5 +1,5 @@
 from MenuManagement import Item, Order 
-from DBManager import OrderManager
+from DBManager import OrderManager, UserManager
 from flask import session, jsonify
 from flask_login import current_user
 
@@ -66,7 +66,7 @@ class OrderHandler():
         return total
     
     def calculateRP(self):
-        total = getOrderTotal()
+        total = self.getOrderTotal()
         gained = 0
         if total >= 1500 and total <= 2999: gained = 75
         elif total >= 3000 and total <= 4999: gained = 150
@@ -78,7 +78,8 @@ class OrderHandler():
     def updateRP(self):
         customerid = current_user.uid
         gainedrp = self.calculateRP()
-        update = self.manager.updateRP(customerid, gainedrp)
+        mymanager = UserManager.UserManager()
+        update = mymanager.updateRP(customerid, gainedrp)
         if update == "Added":
             return "Y"
         else:

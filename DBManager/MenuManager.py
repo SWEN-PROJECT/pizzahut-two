@@ -43,6 +43,20 @@ class MenuManager():
         except Exception as e:
             print("Error: {}".format(e))
             return None
+
+    def deleteItem(self, itemid):
+        try:
+            #extracting item data
+            result = db.session.query(Item).filter_by(item_id=itemid).first()
+            if result != None:
+                db.session.delete(result)
+                db.session.commit()
+                return "Item Deleted"
+            else:
+                return "Item Not Found`"
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
             
     def yItem(self, iname):
         try:
@@ -57,6 +71,16 @@ class MenuManager():
     def getItems(self):
         try:
             result = db.session.query(Item).all()
+            if result == []:
+                return None
+            else:
+                return result
+        except:
+            return None
+    
+    def queryItem(self, item):
+        try:
+            result = db.session.query(Item).filter_by(item_name=item.getName()).first()
             if result == []:
                 return None
             else:

@@ -89,7 +89,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ url_for('menu') }}" id="ham" class="edititem">Edit Item</a><br/>
-                    <a href="#" class="del">Delete Item</a>
+                    <a href="{{ url_for('deleteitem', itemID = item.getNum()) }}" class="del">Delete Item</a>
                 </div>
             </div>
         {% endfor %}
