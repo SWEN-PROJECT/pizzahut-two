@@ -16,15 +16,24 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
         </svg>
-        <p class="card-title">Your Order</p>
-        <div class="item-info card-body"></div>            
+        <p class="card-title" style="text-align: center;">Your Order</p>
+        <div class="item-info card-body">
+            <div class="order-info"></div>
+            <form action="#">
+                <label for="type">Choose Checkout Option:</label>
+                <select name="type" id="cars">
+                    <option value="P">In-Store Pick-Up</option>
+                    <option value="D">Delivery</option>
+                </select>
+            </form>
+        </div>            
         <div class="card-footer">
             <a href="">Confirm</a>
         </div>
     </div>
     <div class="card-set">
         {% for item in items %}
-            <div class="card" id={{ item.getNum() }}>
+            <div class="card card-h" id={{ item.getNum() }}>
                 <img src="{{ url_for('get_image', filename= item.getImageName()) }}" alt="" class="card-img">
                 <div class="card-body">
                     <h5 class="card-title">{{ item.getName() }}</h5>
@@ -37,26 +46,62 @@
         {% endfor %}
     </div>
     {% else %}
+    <div class="back has-fade"></div>
+    <div class="confirm card has-fade">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        <p class="card-title" style="text-align: center;">Add Item</p>
+        <form action="{{ url_for('menu') }}" method="POST">
+            {{ edit_form.csrf_token }}
+            <div class="card-body">
+                <div class="form-group-row">
+                    {{edit_form.name(placeholder="Name", id = iname)}} 
+                </div>
+                <div class="form-group-row">
+                    {{edit_form.price(placeholder="Price", id = iprice)}}
+                </div>
+                <div class="form-group-row">
+                    {{edit_form.tag(placeholder="Tag", id = itag)}}
+                </div>
+                <div class="form-group-row">
+                    {{edit_form.description(placeholder="Description", id = ides)}}
+                </div>
+                <div class="form-group-row">
+                    {{edit_form.image(id = iimg)}}
+                </div>
+                <!-- <p class="card-text"></p> -->
+            </div>            
+            <div class="card-footer">
+                <button class="save" id = "addbtn" type="submit">Add Item</button></div>
+        </form>
+    </div>
     <div class="card-set">
         {% for item in items %}
         <div class="card">
-            <img src="" alt="" class="card-img">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text"></p>
+            <div class="card card-h" id={{ item.getNum() }}>
+                <img src="{{ url_for('get_image', filename= item.getImageName()) }}" alt="" class="card-img">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.getName() }}</h5>
+                    <p class="card-text"> {{ item.getDescription() }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('menu') }}" id="ham" class="edit">Edit Item</a><br/>
+                    <a href="#" class="del">Delete Item</a>
+                </div>
             </div>
-            <a href="#" id="ham" class="edit"></a>
-            <a href="#" class="del"></a>
         </div>
         {% endfor %}
-        <div class="card">
+        <a href="{{ url_for('menu') }}" style="color: black;" class = "additem">
+        <div class="card card-add">
             <div class="card-body">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-                <p>Add Item</p>
+                </svg> -->
+                <p>Add Item </p>
             </div>
         </div>
+        </a>
         <div class="edit-form has-fade">
             <form action="{{ url_for('menu') }}" method="POST">
                 {{ edit_form.csrf_token }}
@@ -79,5 +124,6 @@
 {% if type == "C" %}
  <script src="{{ url_for('static', filename='js/menu.js')}}"></script>
 {% else %}
+<script src="{{ url_for('static', filename='js/mmenu.js')}}"></script>
 {% endif %}
 {% endblock %}

@@ -1,12 +1,14 @@
 from MenuManagement import Item, Order 
 from DBManager import OrderManager
 from flask import session, jsonify
+from flask_login import current_user
 
 class OrderHandler():
 
     def __init__(self):
         self.current_order = None
         self.final_order = None
+        self.manager = OrderManager.OrderManager()
 
     def addToOrder(self, itemid):
         if self.current_order ==  None:
@@ -21,18 +23,19 @@ class OrderHandler():
             return jsonify({ 'list': 'NOWM'})
         else:
             item_list = self.normalize(self.current_order.getOrder())
-            manager = OrderManager.OrderManager()
-            m_item_list = manager.buildOrderItems(item_list)
+            m_item_list = self.manager.buildOrderItems(item_list)
             self.final_order = m_item_list
             return self.jsonifyItems(m_item_list)
 
-    # def confirmed(self):
-    #     manager = OrderManager.OrderManager()
-    #     m_item_list = manager.buildOrderItems(item_list)
-    #     return m_item_list
-    #     # manager.insertOrder(m_item_list)
-    #     pass
-    
+    def confirm(self, type):
+        self.current_order.setCheckoutType(type)
+        self.current_order.setTotal(self.getOrderTotal())
+        result = self.manager.insertOrder(self.final_order, self.current_order)
+        if result == 'Success':
+            return 'OK'
+        else:
+            return 'NOK'
+
     def normalize(self, lst):
         seen = []
         result = []
@@ -58,16 +61,9 @@ class OrderHandler():
     # Order total functions 
     def getOrderTotal(self):
         total = 0
-        item_list = self.normalize(self.current_order.getOrder())
-        manager = OrderManager.OrderManager()
-        m_item_list = manager.buildOrderItems(item_list)
-
-        for i in m_item_list:
+        for i in self.final_order:
             total += (i.getPrice() * i.getQty())
         return total
-    
-    def setOrderTotal(self):
-        self.current_order.setTotal(self.getOrderTotal())
     
     def calculateRP(self):
         total = getOrderTotal()
@@ -81,9 +77,8 @@ class OrderHandler():
 
     def updateRP(self):
         customerid = current_user.uid
-        orderman = OrderManager.OrderManager()
         gainedrp = self.calculateRP()
-        update = orderman.UpdateRP(customerid, gainedrp)
+        update = self.manager.updateRP(customerid, gainedrp)
         if update == "Added":
             return "Y"
         else:

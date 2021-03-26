@@ -128,7 +128,6 @@ class UserManager():
             sname = staff.getUname() 
             hashedPass = self.encrypt_password(staff.getPassword())
             stype = staff.getType()
-            print("Staff")
             db.session.add(Euser(sname, hashedPass, stype))
             db.session.commit()
             return "Staff added"

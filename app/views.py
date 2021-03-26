@@ -3,7 +3,7 @@ from flask_wtf import form
 from app import app, login_manager
 from flask import render_template, url_for, redirect, flash, request, session, send_from_directory, jsonify
 from flask_login import logout_user, current_user, login_required
-from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm
+from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm, StaffForm
 from AppController import LSHandler, MenuHandler
 from app.models import Euser
 from werkzeug.utils import secure_filename
@@ -117,6 +117,20 @@ def checkoutCO():
     result = order_handler.checkout()
     return result
 
+"""Current Order Confirmed"""
+@app.route('/menu/confirm', methods=['POST', 'GET'])
+def confirmCO():
+    global order_handler
+    if request.method == 'POST':
+        result = order_handler.confirm(request.form.get('type'))
+        if result == 'OK':
+            flash('Order Completed', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Order Not Completed', 'danger')
+            return redirect(url_for('dashboard'))
+    return "Order Not Confirmed"
+
 """Edit Profile Method"""
 @login_required
 @app.route("/edit-profile", methods=["GET","POST"])
@@ -156,6 +170,27 @@ def get_image(filename):
     return  send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']),filename)
 
 
+
+#Add Staff Account 
+@login_required
+@app.route('/addstaff', methods=['POST', 'GET'])
+def addStaff():
+    sform = StaffForm()
+    if request.method == 'POST':
+        if sform.validate_on_submit():
+            ctrl = LSHandler.LSHandler()
+            attempt = ctrl.staffHandle(sform.username.data,sform.password.data)
+            if (attempt == "S"): 
+                flash('Account Created!', 'success')
+                return redirect(url_for('dashboard'))
+            elif (attempt == "F"): 
+                flash('Account Not Created!', 'danger') 
+                return redirect(url_for('dashboard'))
+            else: flash('Username is taken.', 'danger')
+        else:
+            #flash error message
+            flash_errors(sform)
+    return render_template('addstaff.html', form = sform)
 
 @app.after_request
 def add_header(response):

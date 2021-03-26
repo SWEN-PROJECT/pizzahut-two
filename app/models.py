@@ -78,6 +78,9 @@ class Item(db.Model):
 
 """Model for the Order Table in the Pizza Hut(2) Database"""
 class Order(db.Model):
+
+    __tablename__ = "cust_order"
+
     order_num = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_create = db.Column(db.DateTime, default = datetime.now(timezone))    
     uid = db.Column(db.Integer, db.ForeignKey('euser.uid'))
@@ -95,7 +98,7 @@ class Order(db.Model):
 
 
 class Item_List(db.Model):
-    order_num = db.Column(db.Integer, db.ForeignKey('order.order_num'), primary_key=True)
+    order_num = db.Column(db.Integer, db.ForeignKey('cust_order.order_num'), primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
     quantity = db.Column (db.Integer)
     

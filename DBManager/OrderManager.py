@@ -1,11 +1,11 @@
 from app import db
 from app.models import Order, Item_List, Item, Customer
+from datetime import date
 
 class OrderManager():
 
     def __init__(self):
         pass
-
 
     """
         Method queries the Database for Information for specific Items contained in the Item List
@@ -37,7 +37,7 @@ class OrderManager():
     # """
     def insertOrder(self, item_list, order):
         try:
-            new_order = Order('Date Created', order.getTotal(), order.getStatus(), order.getCheckoutType())
+            new_order = Order(date.today(), order.getTotal(), order.getStatus(), order.getCheckoutType())
             db.session.add(new_order)
 
             oquery = db.session.query(Order).all()

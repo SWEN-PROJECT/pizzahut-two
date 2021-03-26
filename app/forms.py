@@ -37,3 +37,6 @@ class ItemForm(FlaskForm):
     description = TextAreaField("Descripton", validators = [DataRequired()])
     image= FileField("Image", validators=[FileRequired(), FileAllowed(['jpg','png'])])
 
+class StaffForm(FlaskForm):
+    username = StringField("Username", validators = [DataRequired()])
+    password = PasswordField("Password", validators = [DataRequired()])

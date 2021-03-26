@@ -2,7 +2,7 @@ from flask_wtf import form
 from app import app, login_manager
 from flask import flash
 from DBManager import UserManager
-from Users import Customers, User
+from Users import Customers, User, Staff
 from flask_login import login_user, current_user
 
 
@@ -64,3 +64,17 @@ class LSHandler():
             return "S"
         else:
             return "F"
+    
+    def staffHandle(self, uname, pwd):
+        manager = UserManager.UserManager()
+        temp = User.User(uname)
+        result = manager.queryUser(temp)
+        if (result == None):
+            staff = Staff.Staff(uname, pwd)
+            message = manager.insertStaff(staff)
+            if message == "Staff added":
+                return "S"
+            else:
+                return "F"
+        else:
+            return "T"

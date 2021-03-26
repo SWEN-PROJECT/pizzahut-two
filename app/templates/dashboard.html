@@ -45,13 +45,16 @@
   <h2>Welcome, User</h2>
   <div class="grid">
     <div class="card-holder">
-      <div class="card">
-        <div class="circle"></div>
-        <div>
-          <h3>Edit Menu</h3>
-          <p>Add, edit or delete current menu items</p>
+      <a href="{{ url_for('menu')}}">
+        <div class="card">
+          <div class="circle"></div>
+          <div>
+            <h3>Edit Menu</h3>
+            <p>Add, edit or delete current menu items</p>
+          </div>
         </div>
-      </div>
+      </a>
+      
       <div class="card">
         <div class="circle"></div>
         <div>
@@ -59,13 +62,15 @@
           <p>Generate daily, monthly or yearly reports</p>
         </div>
       </div>
-      <div class="card">
-        <div class="circle"></div>
-        <div>
-          <h3>Create Staff Account</h3>
-          <p>Create a Staff Account</p>
+      <a href="{{ url_for('addStaff')}}">
+        <div class="card">
+          <div class="circle"></div>
+          <div>
+            <h3>Create Staff Account</h3>
+            <p>Create a Staff Account</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <div class="image">
       <img

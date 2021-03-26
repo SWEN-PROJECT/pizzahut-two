@@ -27,8 +27,7 @@ window.onload = function(event){
             });
         }
     });
-    
-    console.log(checkout);
+
     checkout.addEventListener('click', (event) => {
         event.preventDefault();
 
@@ -48,14 +47,12 @@ window.onload = function(event){
                 if( lst == 'NOWM'){
 
                 }else{
-                    checkout.textContent = 'Checkout';
-                    let section = document.querySelector('.item-info');
+                    let section = document.querySelector('.order-info');
                     let result = "";
                     for(i = 0; i < lst.length; i++){
-                        result +=  `<p>${i+1} ${lst[i].name} ${lst[i].qty} ${lst[i].price}</p>`;
+                        result += `<div class="items"> <p>${i+1} ${lst[i].name}</p> <p>${lst[i].qty}</p> <p>${lst[i].price}</p></div>`;
                     }
                     section.innerHTML = result;
-
                 }
             })
             .catch(error => {
@@ -76,5 +73,30 @@ window.onload = function(event){
             })
         }
     })
+
+    let card_footer = confirms.querySelector(".card-footer");
+    
+    card_footer.addEventListener('click', (event) =>{
+            event.preventDefault();
+
+            let section = document.querySelector('.item-info').querySelector('form').querySelector('select');
+            let val = section.value;
+
+            var searchParams = new URLSearchParams();
+            searchParams.append('type', val);
+
+            fetch(`/menu/confirm`, {
+                method: 'POST' ,
+                body: searchParams,
+            }).then(response => response.text())
+            .then(received => {
+                    if( received == 'OK'){
+                        checkout.textContent = 'Checkout';
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+    });
     
 };

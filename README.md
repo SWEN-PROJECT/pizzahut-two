@@ -9,12 +9,12 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 - SignUp Page
 - Dashboard (Customer and Manager)
 - View Menu
+- Add Staff Member
 
 ## Pages to be Completed
 
 - Edit Menu
 - Generate Report
-- Add Staff Member
 - Make Order
 - View Profile (Optional)
 - Pop Up Forms

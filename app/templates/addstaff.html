@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/signin.css')}}"
+/>
+{% endblock %} {% block main %}
+<div class="main">
+  <div class="image">
+    <div class="ellipse ellipse1"></div>
+    <div class="ellipse ellipse2"></div>
+    <div class="ellipse ellipse3"></div>
+  </div>
+  {% include 'flashmssgs.html' %}
+  <div class="signup-right">
+    <h1>Create Staff Account</h1>
+    <h2>Please enter information to create a staff account.</h2>
+    {% include 'flash.html'%}
+    <form action="/addstaff" method="POST">
+      {{form.csrf_token }}
+      <div class="form-group">
+        {{ form.username(placeholder="Username")}} {{
+        form.password(placeholder="Password")}}
+      </div>
+      <button class="btn orange" type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>
+<!-- <br><br> -->
+{% endblock %}

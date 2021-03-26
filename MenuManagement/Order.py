@@ -4,6 +4,8 @@ class Order():
        self.item_list = []
        self.distinct = []
        self.total = 0
+       self.status = 'Pending'
+       self.checkoutType = None
 
     def addItem(self, item):
         if item in self.distinct:
@@ -12,6 +14,7 @@ class Order():
 
     def getItems(self):
         return self.item_lst
+
     def getOrder(self):
         return self.item_list
 
@@ -25,7 +28,15 @@ class Order():
         self.total = total
 
     def getStatus(self):
-        pass
+        return self.status
 
     def getCheckoutType(self):
-        pass
+        return self.checkoutType
+
+    def setCheckoutType(self, ctype):
+        if ctype == 'P':
+            self.checkoutType = 'Pickup'
+        elif ctype == 'D':
+            self.checkoutType = 'Delivery'
+        else:
+            self.checkoutType = 'Undecided'   

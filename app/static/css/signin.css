@@ -356,9 +356,12 @@ a:link {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: .25rem;
   width: 20rem;
-  height: 80%;
   -webkit-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
           box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-h {
+  height: 80%;
 }
 
 .card-img {
@@ -382,7 +385,7 @@ a:link {
 .card-title {
   font-size: 16px;
   font-weight: 600;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .card-text {
@@ -406,7 +409,7 @@ a:link {
 }
 
 .card svg {
-  margin-left: 570px;
+  margin-left: 580px;
 }
 
 .card svg:hover {
@@ -440,15 +443,15 @@ img {
 }
 
 .confirm {
-  background-color: #ffffff;
+  background-color: #F5F5F5;
   position: absolute;
   margin: 0 auto;
   border-radius: 3px;
   width: 40rem;
-  height: 30rem;
   -webkit-transform: translate(38%);
           transform: translate(38%);
   font-weight: 900px;
+  padding-top: 1rem;
 }
 
 .confirm a:hover {
@@ -466,6 +469,30 @@ img {
   left: 0px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(transparent));
   background-image: linear-gradient(#F5F5F5, transparent);
+}
+
+.item-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.items p {
+  padding-right: 1rem;
 }
 
 .main {
