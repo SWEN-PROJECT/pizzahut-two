@@ -108,8 +108,14 @@ def menu():
             else:  flash_errors(form)
     return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form)
 
+@app.route('/menu/<int:itemID>', methods=['GET'])
+def retrieve(itemID):
+    global menu_handler
+    result = menu_handler.retrieveHandle(itemID)
+    return result
+
 """Update Current Order"""
-@app.route('/menu/<itemID>', methods=['POST', 'GET'])
+@app.route('/menu/<int:itemID>', methods=['POST'])
 @login_required
 def updateCO(itemID):
     global order_handler

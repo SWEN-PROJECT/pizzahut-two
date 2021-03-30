@@ -1,5 +1,6 @@
 from DBManager import MenuManager
 from MenuManagement import Item
+from flask import jsonify
 
 class MenuHandler():
     def __init__(self):
@@ -69,3 +70,25 @@ class MenuHandler():
         else:
             print("f")
             return "NOK"
+    
+    def retrieveHandle(self, itemid):
+        manager = MenuManager.MenuManager()
+        result = manager.queryItem(itemid)
+        if result == None:
+            return jsonify({ 'result': 'NOK' })
+        else:
+            return self.jsonifyItems([result])
+
+    def jsonifyItems(self, items):
+        result = { 'result': [] }
+        for i in items:
+            body = {
+                'name': i.item_name, \
+                    'desc': i.item_description, \
+                        'price':  i.price, \
+                            'key' :  i.item_id, \
+                                'tag': i.item_tag
+            }
+            result['result'].append(body)
+        return jsonify(result)
+

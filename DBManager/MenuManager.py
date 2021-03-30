@@ -79,9 +79,12 @@ class MenuManager():
         except:
             return None
     
-    def queryItem(self, item):
+    def queryItem(self, id=None, obj=None):
         try:
-            result = db.session.query(Item).filter_by(item_name=item.getName()).first()
+            if id == None:
+                result = db.session.query(Item).filter_by(item_name=obj.getName()).first()
+            else:
+                result = db.session.query(Item).filter_by(item_id=id).first()
             if result == []:
                 return None
             else:

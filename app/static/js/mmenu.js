@@ -9,6 +9,7 @@ window.onload = function(event){
     const back = document.querySelector('.back');
     const ex = document.querySelector('.bi')
     const addbtn =  document.getElementById('addbtn');
+
     // const deletebtn= document.getElementById('deletebtn');
 
     let card_list = document.querySelectorAll(".icard");
@@ -46,7 +47,32 @@ window.onload = function(event){
         edititem.addEventListener('click', (event) => {
             event.preventDefault();
             let p = confirms.querySelector(".card-title");
-            p.textContent = 'Edit-Menu';
+            p.textContent = 'Edit-Item';
+
+            addbtn.textContent = 'Edit Item';
+            addbtn.addEventListener()
+            // addbtn.setAttribute("id","editbtn");
+            // console.log(addbtn.className);
+            // console.log(addbtn.id)
+            // let editbtn =  document.getElementById('editbtn');
+            editbtn.addEventListener('click', (event) =>{
+                event.preventDefault();
+                
+                let form = document.forms[0]
+
+                console.log(form);
+
+                // form.submit();
+                if (confirms.classList.contains('open')){
+                    body.classList.remove("notscroll");
+                    confirms.classList.remove('open');
+                    fades.forEach(function(element){
+                        element.classList.remove('fade-in');
+                        element.classList.add('fade-out');
+                    })
+                }
+            });
+
             body.classList.add("notscroll");
             body.classList.add("back");
             confirms.classList.add('open');
@@ -90,6 +116,7 @@ window.onload = function(event){
             })
         }
     });
+    
     
 
     

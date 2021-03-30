@@ -16,14 +16,16 @@ window.onload = function(event){
         if (card_button != null){
             card_button.addEventListener('click', (event) => {
                 event.preventDefault();
-                fetch(`/menu/${data}`)
-                    .then(response => response.text())
-                    .then(datar => {
+
+                fetch(`/menu/${data}`, {
+                    method: 'POST' ,
+                }).then(response => response.text())
+                  .then(datar => {
                         checkout.textContent = `Checkout(${datar})`;
-                    })
-                    .catch(error => {
+                   })
+                  .catch(error => {
                         console.log(error);
-                    });
+                   });
             });
         }
     });
