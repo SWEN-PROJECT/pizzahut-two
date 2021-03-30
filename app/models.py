@@ -97,8 +97,8 @@ class Order(db.Model):
 
 
 class ItemList(db.Model):
-    order_num = db.Column(db.Integer, db.ForeignKey('cust_order.order_num'), primary_key=True)
-    item_id = db.Column(db.Integer, db.ForeignKey('item.item_id'), primary_key=True)
+    order_num = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column (db.Integer)
     
     def __init__(self, order_num, item_id , quantity):

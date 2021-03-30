@@ -5,6 +5,8 @@ class MenuHandler():
     def __init__(self):
         pass
     
+    """Method to handle the addition of items to the Menu
+        return : char"""
     def addHandle(self,name, price, tag, description, imagename):
         manager = MenuManager.MenuManager()
         result = manager.queryItem(name)
@@ -18,11 +20,13 @@ class MenuHandler():
         else:
             return "C"
 
+    """Method to handle the editing of items that would have already been in the menu
+        return : char"""
     def editHandle(self,itemid, name, price, tag, description, imagename):
         manager = MenuManager.MenuManager()
         result = manager.queryItem(itemid)
         if result==None:
-            item = Item.Item( name, description, tag, price, imagename)
+            item = Item.Item(name, description, tag, price, imagename)
             itemadd = manager.editItem(itemid, item)
             if itemadd == "Item Edited":
                 return "S"
@@ -31,13 +35,17 @@ class MenuHandler():
         else:
             return "C"
 
-    
+    """HELPER
+        Method to turn item information entered by the user into an item object
+        return : lst of item objects"""
     def itemobjectify(self, lst):
         result = []
         for i in lst:           
             result.append(Item.Item(i.item_name, i.item_description, i.item_tag, i.item_price, i.item_img, i.item_id))
         return result
     
+    """Method that handles the getting of all or all specified items being requested
+        return if !NONE : lst of item objs, else return : char"""
     def viewHandle(self):
        manager = MenuManager.MenuManager()
        result = manager.getItems()
@@ -50,15 +58,14 @@ class MenuHandler():
             except:
                 return "N"
     
+    """Method that handles the deletion of a specified item 
+        return : char"""
     def deleteHandle(self, itemid):
         manager = MenuManager.MenuManager()
         result = manager.deleteItem(itemid)
-        if (result == "Item deleted") :
+        if (result == "Item Deleted") :
             print("s")
-            return "S"
-        elif (result == "Item deleted") :
-            print("c")
-            return "C"
+            return "OK"
         else:
             print("f")
-            return "F"
+            return "NOK"

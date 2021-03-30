@@ -9,7 +9,7 @@ from app.models import Euser
 from werkzeug.utils import secure_filename
 from DBManager import UserManager
 from Users import User
-from .globals import order_handler
+from .globals import order_handler, menu_handler
 
 @app.route("/")
 def landing():
@@ -110,34 +110,20 @@ def menu():
 
 """Update Current Order"""
 @app.route('/menu/<itemID>', methods=['POST', 'GET'])
+@login_required
 def updateCO(itemID):
     global order_handler
     result = order_handler.addToOrder(itemID)
     return f"{result}"
 
-@app.route('/menu/<itemID>', methods=['POST', 'GET'])
+@app.route('/menu/<int:itemID>', methods=['DELETE'])
 @login_required
 def deleteitem(itemID):
-    print("Print This")
-    if not current_user.is_authenticated:
-        return redirect(url_for('landing'))
-    else:
-        print("I am heeere")
-        ctrl = MenuHandler.MenuHandler()
-        print("I am here")
-        items = ctrl.viewHandle()
-        form = ItemForm()
-        attempt = ctrl.deleteHandle(itemID)
-        if (attempt == "S"): 
-            flash('Item Successfully Deleted', 'success')
-            return redirect(url_for('menu'))
-        elif (attempt == "F"): 
-            flash('Item Not Deleted', 'danger') 
-            return redirect(url_for('menu'))
-        else: flash('Item not found.', 'danger')
-        return redirect(url_for('menu'))
-        print("Mi deh yah")
-    return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form)
+    global menu_handler
+    result = menu_handler.deleteHandle(itemID)
+    return f'{result}'
+    
+   
 
 """Checkout Current Order"""
 @app.route('/menu/checkout', methods=['POST', 'GET'])

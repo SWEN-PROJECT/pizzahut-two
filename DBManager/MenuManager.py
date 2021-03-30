@@ -26,20 +26,21 @@ class MenuManager():
             return None
     
     def editItem(self, item):
-        print('Hello There2')
         try:
+            #Get Item 
+            itm = db.session.query(Item).filter_by(item_id=item.getNum()).first()
+            if itm == [] or itm == None:
+                raise Exception("Query returned something empty")
+            
             #extracting item data
-            name = item.getName()
-            description = item.getDescription()
-            itype = item.getType()
-            imagename = item.getImageName()
-            price = item.getPrice()
-
-            print('Hello There')
-            db.session.add(Item(name, description, itype, price, imagename))
-            print('I am here')
+            itm.item_name = item.getName()
+            itm.item_description = item.getDescription()
+            itm.item_tag = item.getType()
+            itm.item_price = item.getPrice()
+            itm.item_img  = item.getImageName()
+            
             db.session.commit()
-            return "Item Added"
+            return "Item Edited"
         except Exception as e:
             print("Error: {}".format(e))
             return None
@@ -48,16 +49,16 @@ class MenuManager():
         try:
             #extracting item data
             result = db.session.query(Item).filter_by(item_id=itemid).first()
-            if result != None:
+            if result != None or result == []:
                 db.session.delete(result)
                 db.session.commit()
                 return "Item Deleted"
             else:
-                return "Item Not Found`"
+                return "Item Not Found"
         except Exception as e:
             print("Error: {}".format(e))
             return None
-            
+  
     def yItem(self, iname):
         try:
             result = db.session.query(Item).filter_by(item_name=iname).all()

@@ -46,7 +46,8 @@ class LSHandler():
         else:
             return "T"
 
-    """Method to handle the signup of a user, return : char"""
+    """Method to handle the signup of a user
+        return : char"""
     def loadCustomer(self):
         manager = UserManager.UserManager()
         result = manager.queryCustomer(current_user.uid)
@@ -56,6 +57,8 @@ class LSHandler():
             result.setUname(current_user.u_name)
             return result
 
+    """Method to handle updates to a specified users information
+        return : char"""
     def updateHandle(self, uname, npwd, fname, lname, streetname, streetnum, town, parish, tele, email):
         manager = UserManager.UserManager()
         customer = manager.createcust(uname, npwd, fname, lname, streetname, streetnum, town, parish, tele, email)
@@ -65,6 +68,8 @@ class LSHandler():
         else:
             return "F"
     
+    """Method to handle the adding of staff members by the manager
+        return : char"""
     def staffHandle(self, uname, pwd):
         manager = UserManager.UserManager()
         temp = User.User(uname)

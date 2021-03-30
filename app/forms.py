@@ -29,6 +29,7 @@ class UpdateUserForm(FlaskForm):
     parish = StringField("Parish", validators=[InputRequired()])
     telenum = IntegerField("Telephone Number", validators=[InputRequired()])
     email = TextField('Email', validators=[InputRequired()])
+    # , im pinned to you ok
 
 class ItemForm(FlaskForm):
     name = StringField("Name", validators = [DataRequired()])
