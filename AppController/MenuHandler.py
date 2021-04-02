@@ -10,7 +10,7 @@ class MenuHandler():
         return : char"""
     def addHandle(self,name, price, tag, description, imagename):
         manager = MenuManager.MenuManager()
-        result = manager.queryItem(name)
+        result = manager.queryItem(name=name)
         if result==None:
             item = Item.Item( name, description, tag, price, imagename)
             itemadd = manager.addItem(item)
@@ -25,10 +25,10 @@ class MenuHandler():
         return : char"""
     def editHandle(self,itemid, name, price, tag, description, imagename):
         manager = MenuManager.MenuManager()
-        result = manager.queryItem(itemid)
-        if result==None:
-            item = Item.Item(name, description, tag, price, imagename)
-            itemadd = manager.editItem(itemid, item)
+        result = manager.queryItem(id=itemid)
+        if result != None:
+            item = Item.Item(name, description, tag, price, imagename, num=result.item_id)
+            itemadd = manager.editItem(item)
             if itemadd == "Item Edited":
                 return "S"
             else:
@@ -85,7 +85,7 @@ class MenuHandler():
             body = {
                 'name': i.item_name, \
                     'desc': i.item_description, \
-                        'price':  i.price, \
+                        'price':  i.item_price, \
                             'key' :  i.item_id, \
                                 'tag': i.item_tag
             }

@@ -27,6 +27,8 @@ def login():
             elif (attempt == "Y"): 
                 flash('Login successful!', 'success')
                 session["uname"] = request.form['username']
+                if current_user.u_type == 'S':
+                    return redirect(url_for('landing'))
                 return redirect(url_for('dashboard'))
             else: flash('Cannot login as user ' + request.form['username'], 'danger')
         else: 
@@ -49,7 +51,7 @@ def logout():
 def signup():
     sform = SignupForm()
     if request.method == 'POST':
-        if sform.validate_on_submit():
+        if sform.validate_on_submit(): 
             ctrl = LSHandler.LSHandler()
             attempt = ctrl.signupHandle(sform.username.data,sform.password.data,sform.fname.data,sform.lname.data, sform.streetname.data,sform.streetnum.data,sform.town.data,sform.parish.data,sform.telenum.data,  sform.email.data)
             if (attempt == "S"): 
@@ -95,16 +97,30 @@ def menu():
                 imagename = secure_filename(photo.filename)
                 photo.save(os.path.join(app.config['UPLOAD_FOLDER'], imagename))
 
-                attempt = ctrl.addHandle(name, price, tag, description, imagename)
-
-                if (attempt == "S"): 
-                    flash('Item Successfully Added Saved', 'success')
-                    return redirect(url_for('menu'))
-                elif (attempt == "F"): 
-                    flash('Item Not Added', 'danger') 
-                    return redirect(url_for('menu'))
-                else: flash('Item name is taken.', 'danger')
-                return redirect(url_for('menu'))
+                #implementing if statement to see if the form is for editing or adding
+                if "addform" in request.form:
+                    attempt = ctrl.addHandle(name, price, tag, description, imagename)
+                    if (attempt == "S"): 
+                        flash('Item Successfully Added Saved', 'success')
+                        return redirect(url_for('menu'))
+                    elif (attempt == "F"): 
+                        flash('Item Not Added', 'danger') 
+                        return redirect(url_for('menu'))
+                    else: 
+                        flash('Item name is taken.', 'danger')
+                        return redirect(url_for('menu'))
+                else:
+                    itemid = request.form.get("itemid")
+                    attempt = ctrl.editHandle(itemid, name, price, tag, description, imagename)
+                    if (attempt == "S"): 
+                        flash('Item Successfully Edited', 'success')
+                        return redirect(url_for('menu'))
+                    elif (attempt == "F"): 
+                        flash('Item Not Edited', 'danger') 
+                        return redirect(url_for('menu'))
+                    else: 
+                        flash('Item Does Not Exist', 'danger')
+                        return redirect(url_for('menu'))
             else:  flash_errors(form)
     return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form)
 

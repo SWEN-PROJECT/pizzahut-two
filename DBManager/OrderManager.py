@@ -56,7 +56,6 @@ class OrderManager():
 
     def getRecentOrder(self, id):
         try:
-
             oquery =  db.session.query(Order).filter_by(uid=id).all()
             if oquery == [] or oquery == None:
                 raise Exception("Query returned something empty")
@@ -76,6 +75,21 @@ class OrderManager():
                 result.append({ 'name': temp.item_name, 'qty': i.quantity, 'price': temp.item_price})
 
             return {'item_list': result, 'order': oquery}
+        except Exception as ex:
+            print("{}".format(ex))
+            return []
+
+    def getAllOrders(self):
+        try:
+            orders = db.session.query(Order).all()
+            if orders == [] or orders == None:
+                raise Exception("Query returned something empty")
+            
+            itemLst = db.session.query(ItemList).all()
+            if itemLst == [] or itemLst == None:
+                raise Exception("Query returned something empty")
+            
+            return [orders,itemLst]
         except Exception as ex:
             print("{}".format(ex))
             return []

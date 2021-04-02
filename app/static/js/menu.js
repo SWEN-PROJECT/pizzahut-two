@@ -32,8 +32,6 @@ window.onload = function(event){
 
     checkout.addEventListener('click', (event) => {
         event.preventDefault();
-
-        body.classList.add("notscroll");
         body.classList.add("back")
         confirms.classList.add('open');
         fades.forEach(function(element){
@@ -68,7 +66,6 @@ window.onload = function(event){
     ex.addEventListener('click', (event) =>{
         event.preventDefault();
         if (confirms.classList.contains('open')){
-            body.classList.remove("notscroll");
             confirms.classList.remove('open');
             fades.forEach(function(element){
                 element.classList.remove('fade-in');
@@ -96,7 +93,7 @@ window.onload = function(event){
                     if( received == 'OK'){
                         checkout.textContent = 'Checkout';
                         if (confirms.classList.contains('open')){
-                            body.classList.remove("notscroll");
+            
                             confirms.classList.remove('open');
                             fades.forEach(function(element){
                                 element.classList.remove('fade-in');

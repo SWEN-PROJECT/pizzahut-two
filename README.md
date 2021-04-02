@@ -12,13 +12,14 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 - Add Staff Member
 - Order Complete
 - Make Order
+- Edit Menu
+- Pop Up Forms
 
 ## Pages to be Completed
 
-- Edit Menu
+- Staff Page
 - Generate Report
 - View Profile (Optional)
-- Pop Up Forms
 
 ## Functionality to Implement
 

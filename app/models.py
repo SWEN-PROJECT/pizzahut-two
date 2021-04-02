@@ -89,6 +89,7 @@ class Order(db.Model):
     checkout = db.Column(db.String(10))
 
     def __init__(self,date_create, uid , total_price,tag,checkout):
+        self.order_num = order_num
         self.date_create = date_create
         self.uid = uid
         self.total_price = total_price 
@@ -104,4 +105,4 @@ class ItemList(db.Model):
     def __init__(self, order_num, item_id , quantity):
         self.order_num = order_num
         self.item_id = item_id 
-        self.quantity = quantity 
+        self.quantity = quantity

@@ -102,3 +102,15 @@ class OrderHandler():
         obj.setCheckoutType(order.checkout)
         obj.setStatus(order.tag)
         return  obj
+
+    def assembleAll(self):
+        pass
+        # result = self.manager.getAllOrders()
+        # if result != []:
+        #     orderLst,itemLst = result[0],result[1]
+        #     for order in orderLst:
+        #         order = Order.Order([],[],order.total_price,order.checkout,order.uid)
+        #         for item in itemLst:
+        #             orderitem.order_num
+                                    
+        

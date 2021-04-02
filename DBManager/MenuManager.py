@@ -7,7 +7,6 @@ class MenuManager():
         pass
 
     def addItem(self, item):
-        print('Hello There2')
         try:
             #extracting item data
             name = item.getName()
@@ -16,9 +15,7 @@ class MenuManager():
             imagename = item.getImageName()
             price = item.getPrice()
 
-            print('Hello There')
             db.session.add(Item(name, description, itype, price, imagename))
-            print('I am here')
             db.session.commit()
             return "Item Added"
         except Exception as e:
@@ -71,7 +68,7 @@ class MenuManager():
     
     def getItems(self):
         try:
-            result = db.session.query(Item).all()
+            result = db.session.query(Item).order_by(Item.item_id).all()
             if result == []:
                 return None
             else:
@@ -79,10 +76,10 @@ class MenuManager():
         except:
             return None
     
-    def queryItem(self, id=None, obj=None):
+    def queryItem(self, id=None, name=None):
         try:
             if id == None:
-                result = db.session.query(Item).filter_by(item_name=obj.getName()).first()
+                result = db.session.query(Item).filter_by(item_name=name).first()
             else:
                 result = db.session.query(Item).filter_by(item_id=id).first()
             if result == []:
