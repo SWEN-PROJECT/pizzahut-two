@@ -94,4 +94,32 @@ class OrderManager():
             print("{}".format(ex))
             return []
     
+    def getAllOrders(self):
+        try:
+            orders = db.session.query(Order).filter_by(tag = "Pending").all()
+            if orders == [] or orders == None:
+                raise Exception("Query returned something empty")
+            
+            emptylst = [[]] * len(orders)
+            ordernumlst = []
+            orderlst = []
+            
+            for order in orders:
+                itemlst = []
+                ordernum = order.order_num
+                ordernumlst.append(ordernum)
+                itemLst = db.session.query(ItemList).filter_by(order_num = ordernum).all()
+                if itemLst == [] or itemLst == None:
+                    raise Exception("Query returned something empty")
+                for item in itemLst: 
+                    itemobj = db.session.query(Item).filter_by(item_id = item.item_id).all() 
+                    currentitem = itemobj[0].item_name                     
+                    itemlst.append(currentitem)
+                orderlst += [itemlst]
+            orderdict = dict(zip(ordernumlst, orderlst))
+            return [orders, orderdict]
+        except Exception as ex:
+            print("{}".format(ex))
+            return []
+    
   

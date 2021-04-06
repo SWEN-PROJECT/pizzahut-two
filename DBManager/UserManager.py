@@ -108,7 +108,6 @@ class UserManager():
 
     #add a new manager user to database
     def insertManager(self, manager):
-        #MatthewP - admin123try:
             mname = manager.getUname() 
             hashedPass = self.encrypt_password(manager.getPassword())
             mtype = manager.getType()
@@ -116,15 +115,11 @@ class UserManager():
             db.session.add(Euser(mname, hashedPass, mtype))
             db.session.commit()
             return "Manager added"
-        # except Exception as e:
-        #     print("Error: {}".format(e))
-        #     return None
         
     
     #add a new staff user to the database
     def insertStaff(self, staff):
         try:
-        #staffuser - staff123
             sname = staff.getUname() 
             hashedPass = self.encrypt_password(staff.getPassword())
             stype = staff.getType()

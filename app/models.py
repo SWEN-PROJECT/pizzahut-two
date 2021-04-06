@@ -88,8 +88,7 @@ class Order(db.Model):
     tag = db.Column(db.String(10))
     checkout = db.Column(db.String(10))
 
-    def __init__(self,date_create, uid , total_price,tag,checkout):
-        self.order_num = order_num
+    def __init__(self, date_create, uid , total_price,tag,checkout):
         self.date_create = date_create
         self.uid = uid
         self.total_price = total_price 
