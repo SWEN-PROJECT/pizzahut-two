@@ -40,7 +40,7 @@
       />
     </div>
   </div>
-  {% else %}
+  {% elif type == "M"%}
   <h1 class="first">Dashboard</h1>
   <h2>Welcome, User</h2>
   <div class="grid">
@@ -79,6 +79,20 @@
       />
     </div>
   </div>
+  {% else%}
+  <h1 class="first">Dashboard</h1>
+  <h2>Welcome, User</h2>
+  <div class="grid">
+    <div class="card-holder">
+      <a href="{{ url_for('vieworders')}}">
+        <div class="card">
+          <div class="circle"></div>
+          <div>
+            <h3>View Orders</h3>
+            <p>Viewing Customer Orders</p>
+          </div>
+        </div>
+      </a>
   {% endif %}
 </section>
 {% endblock %}

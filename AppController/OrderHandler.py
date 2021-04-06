@@ -104,8 +104,9 @@ class OrderHandler():
         return  obj
 
     def assembleAll(self):
-        pass
-        # result = self.manager.getAllOrders()
-        # orders = reslut[0]
-        # return 0
-    #     pass imma push since everything working rn hold on
+        result = self.manager.getAllOrders()
+        orders = result[0] 
+        orderdict = result[1] 
+        #pause on this backend a bit 
+        #views? yeah and the html ah
+        return [orders, orderdict]

@@ -28,7 +28,7 @@ def login():
                 flash('Login successful!', 'success')
                 session["uname"] = request.form['username']
                 if current_user.u_type == 'S':
-                    return redirect(url_for('landing'))
+                    return redirect(url_for('dashboard')) #ahh imma try again
                 return redirect(url_for('dashboard'))
             else: flash('Cannot login as user ' + request.form['username'], 'danger')
         else: 
@@ -163,6 +163,12 @@ def confirmCO():
         return f'{result}'
     return "Order Not Confirmed"
 
+@login_required
+@app.route("/vieworders")
+def vieworders():
+    global order_handler
+    result = order_handler.assembleAll()
+    return render_template('staff.html', orders=result[0], orderdict=result[1])
 
 @app.route('/complete', methods=['POST', 'GET'])
 @login_required

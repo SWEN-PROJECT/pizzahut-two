@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css')}}">
+{% endblock %}
+
+{% block main %}
+    <section class="pads container">
+        <div class="head">
+            <h1>All Orders</h1>
+        </div>
+        <div class="card-set">
+            {% for order in orders %}
+                <div class="card card-h">
+                    <div class="card-body">
+                        <div class="card-title">{{order.order_num}}</div>
+                        <div class="card-text">
+                            <ul>
+                                {% for item in orderdict[order.order_num] %}
+                                <li>{{item}}</li>
+                                {% endfor %}
+                            </ul>
+                            {{order.total_price}} 
+                        </div> 
+                    </div> 
+                    <div class="card-footer">
+                        <a href="#">Cancel</a>
+                        <a href="#">Complete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
