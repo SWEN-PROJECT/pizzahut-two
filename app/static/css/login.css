@@ -452,6 +452,10 @@ img {
   margin: 5px 0px;
 }
 
+.hide {
+  display: none;
+}
+
 .login-right {
   display: -webkit-box;
   display: -ms-flexbox;

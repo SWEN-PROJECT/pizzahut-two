@@ -544,6 +544,10 @@ img {
   margin: 5px 0px;
 }
 
+.hide {
+  display: none;
+}
+
 .alert {
   position: relative;
   padding: 0.75rem 1.25rem;

@@ -170,6 +170,20 @@ def vieworders():
     result = order_handler.assembleAll()
     return render_template('staff.html', orders=result[0], orderdict=result[1])
 
+@login_required
+@app.route("/markcomplete <int:order_num>")
+def markcomplete(order_num):
+    global order_handler
+    result = order_handler.markComplete(order_num)
+    return redirect(url_for('vieworders'))
+
+@login_required
+@app.route("/markcancelled <int:order_num>")
+def markcancelled(order_num):
+    global order_handler
+    result = order_handler.markCancelled(order_num)
+    return redirect(url_for('vieworders'))
+
 @app.route('/complete', methods=['POST', 'GET'])
 @login_required
 def order_complete():

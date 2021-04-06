@@ -122,4 +122,15 @@ class OrderManager():
             print("{}".format(ex))
             return []
     
+    def markOrderComplete(self, ordernum):
+        order = db.session.query(Order).filter_by(order_num = ordernum).first()
+        order.tag = "Complete"
+        db.session.commit()
+        return "Order Completed"
+    
+    def markOrderCancelled(self, ordernum):
+        order = db.session.query(Order).filter_by(order_num = ordernum).first()
+        order.tag = "Cancelled"
+        db.session.commit()
+        return "Order Cancelled"
   

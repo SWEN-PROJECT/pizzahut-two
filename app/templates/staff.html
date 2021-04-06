@@ -23,11 +23,15 @@
                         </div> 
                     </div> 
                     <div class="card-footer">
-                        <a href="#">Cancel</a>
-                        <a href="#">Complete</a>
+                        <a href="{{ url_for ('markcancelled', order_num = order.order_num)}}" class="to-hide">Cancel</a>
+                        <a href="{{ url_for ('markcomplete', order_num = order.order_num)}}" class="to-hide">Complete</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+ <script src="{{ url_for('static', filename='js/staff.js')}}"></script>
 {% endblock %}

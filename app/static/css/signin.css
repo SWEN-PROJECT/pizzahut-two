@@ -452,6 +452,10 @@ img {
   margin: 5px 0px;
 }
 
+.hide {
+  display: none;
+}
+
 .main {
   display: -ms-grid;
   display: grid;

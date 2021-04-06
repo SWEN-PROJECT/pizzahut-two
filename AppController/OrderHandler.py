@@ -110,3 +110,11 @@ class OrderHandler():
         #pause on this backend a bit 
         #views? yeah and the html ah
         return [orders, orderdict]
+    
+    def markComplete(self, ordernum):
+        result = self.manager.markOrderComplete(ordernum)
+        return result
+
+    def markCancelled(self, ordernum):
+        result = self.manager.markOrderCancelled(ordernum)
+        return result
