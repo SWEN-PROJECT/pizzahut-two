@@ -14,10 +14,10 @@ This is the github repo for MJDNK Solutions, Online Ordering System
 - Make Order
 - Edit Menu
 - Pop Up Forms
+- Staff Page
 
 ## Pages to be Completed
 
-- Staff Page
 - Generate Report
 - View Profile (Optional)
 
