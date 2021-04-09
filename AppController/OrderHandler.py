@@ -104,12 +104,14 @@ class OrderHandler():
         return  obj
 
     def assembleAll(self):
-        result = self.manager.getAllOrders()
-        orders = result[0] 
-        orderdict = result[1] 
-        #pause on this backend a bit 
-        #views? yeah and the html ah
-        return [orders, orderdict]
+        try:
+            result = self.manager.getAllOrders()
+            orders = result[0] 
+            orderdict = result[1] 
+            return [orders, orderdict]
+        except:
+            return []
+        
     
     def markComplete(self, ordernum):
         result = self.manager.markOrderComplete(ordernum)

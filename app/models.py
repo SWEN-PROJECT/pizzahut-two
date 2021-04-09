@@ -82,7 +82,7 @@ class Order(db.Model):
     __tablename__ = "cust_order"
 
     order_num = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    date_create = db.Column(db.DateTime, default = datetime.now(timezone))    
+    date_create = db.Column(db.DateTime, default = datetime.now(timezone))   
     uid = db.Column(db.Integer, db.ForeignKey('euser.uid'))
     total_price = db.Column(db.Float(precision=2,asdecimal=False))
     tag = db.Column(db.String(10))

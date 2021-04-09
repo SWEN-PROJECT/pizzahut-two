@@ -30,11 +30,11 @@ class OrderManager():
             print("{}".format(ex))
             return ex
     
-    # """
-    #     Method creates a New Order in the Database and Adds the Item in the List to Item List
-    #     paramters: item_list : Collection Of Item Objects, order : Order object
-    #     returns : String if Sucessful, Exception if Unsucessful 
-    # """
+    """
+        Method creates a New Order in the Database and Adds the Item in the List to Item List
+        paramters: item_list : Collection Of Item Objects, order : Order object
+        returns : String if Sucessful, Exception if Unsucessful 
+    """
     def insertOrder(self, item_list, order):
         try:
             new_order = Order(date.today(), order.getCID(), order.getTotal(), order.getStatus(), order.getCheckoutType())

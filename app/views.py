@@ -3,8 +3,8 @@ from flask_wtf import form
 from app import app, login_manager
 from flask import render_template, url_for, redirect, flash, request, session, send_from_directory, jsonify
 from flask_login import logout_user, current_user, login_required
-from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm, StaffForm
-from AppController import LSHandler, MenuHandler
+from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm, StaffForm, ReportForm
+from AppController import LSHandler, MenuHandler, ReportHandler
 from app.models import Euser
 from werkzeug.utils import secure_filename
 from DBManager import UserManager
@@ -28,13 +28,13 @@ def login():
                 flash('Login successful!', 'success')
                 session["uname"] = request.form['username']
                 if current_user.u_type == 'S':
-                    return redirect(url_for('dashboard')) #ahh imma try again
+                    return redirect(url_for('dashboard'))
                 return redirect(url_for('dashboard'))
             else: flash('Cannot login as user ' + request.form['username'], 'danger')
         else: 
             flash_errors(lform)
     return render_template('login.html', form = lform)
-
+ 
 @login_manager.user_loader
 def load_user(id):
     return Euser.query.get(int(id))
@@ -97,7 +97,6 @@ def menu():
                 imagename = secure_filename(photo.filename)
                 photo.save(os.path.join(app.config['UPLOAD_FOLDER'], imagename))
 
-                #implementing if statement to see if the form is for editing or adding
                 if "addform" in request.form:
                     attempt = ctrl.addHandle(name, price, tag, description, imagename)
                     if (attempt == "S"): 
@@ -168,7 +167,8 @@ def confirmCO():
 def vieworders():
     global order_handler
     result = order_handler.assembleAll()
-    return render_template('staff.html', orders=result[0], orderdict=result[1])
+    if result == []: return render_template('staff.html', orders=result, orderdict=result)
+    else: return render_template('staff.html', orders=result[0], orderdict=result[1])
 
 @login_required
 @app.route("/markcomplete <int:order_num>")
@@ -255,6 +255,40 @@ def addStaff():
             #flash error message
             flash_errors(sform)
     return render_template('addstaff.html', form = sform)
+
+@login_required
+@app.route('/report', methods=['POST', 'GET'])
+def generate_rep():
+    rform = ReportForm()
+    if request.method == 'POST':
+        if rform.validate_on_submit():
+            ctrl = ReportHandler.ReportHandler()
+            filter_by = str(request.form.get("filter_by")) 
+            if filter_by == "Day":
+                reptype = request.form.get("reptype")
+                if str(reptype) == "Sales":
+                    rep = "Complete"
+                else:
+                    rep = "Cancelled"
+                itemsdict, price = ctrl.dayReport(request.form.get("day"), request.form.get("month"), request.form.get("year"), rep)
+                return render_template('reports.html',form = rform, items=itemsdict, total=price, reptype = reptype)
+            elif filter_by == "Month":
+                reptype = request.form.get("reptype")
+                if str(reptype) == "Sales":
+                    rep = "Complete"
+                else:
+                    rep = "Cancelled"
+                itemsdict, price = ctrl.monthReport(request.form.get("month"), request.form.get("year"), rep)
+                return render_template('reports.html',form = rform, items=itemsdict, total=price, reptype = reptype)
+            elif filter_by == "Year":
+                reptype = request.form.get("reptype")
+                if str(reptype) == "Sales":
+                    rep = "Complete"
+                else:
+                    rep = "Cancelled"
+                itemsdict, price = ctrl.yearReport(request.form.get("year"), rep)
+                return render_template('reports.html',form = rform, items=itemsdict, total=price, reptype = reptype)
+    return render_template('reports.html', form = rform, items=None, total=None, reptype = None)
 
 @app.after_request
 def add_header(response):

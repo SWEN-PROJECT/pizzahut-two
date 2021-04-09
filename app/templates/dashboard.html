@@ -55,13 +55,15 @@
         </div>
       </a>
       
-      <div class="card">
-        <div class="circle"></div>
-        <div>
-          <h3>Generate Report</h3>
-          <p>Generate daily, monthly or yearly reports</p>
+      <a href="{{ url_for('generate_rep')}}">
+        <div class="card">
+          <div class="circle"></div>
+          <div>
+            <h3>Generate Report</h3>
+            <p>Generate daily, monthly or yearly reports</p>
+          </div>
         </div>
-      </div>
+      </a> 
       <a href="{{ url_for('addStaff')}}">
         <div class="card">
           <div class="circle"></div>

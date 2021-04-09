@@ -1,0 +1,52 @@
+{% extends "base.html" %} 
+
+{% block main %}
+
+<div class="main">
+    <form method='POST' action="{{ url_for('generate_rep')}}">
+        {{ form.csrf_token }}
+        
+        {{ form.reptype.label }}
+        {{ form.reptype }}
+
+        {{ form.year.label }}
+        {{ form.year }}
+
+        {{ form.month.label }}
+        {{ form.month }}
+
+        {{ form.day.label }}
+        {{ form.day }}
+
+        {{ form.filter_by.label }}  
+        {{ form.filter_by }}
+
+        <button type="submit"> Submit</button>
+    </form>
+    {% if items != None %}
+    <h1>Reporting : {{ reptype }} Report</h1>
+    <div class="table-data">
+        <table>
+            <thead>
+                <tr>
+                    <td>Item Name</td>
+                    <td>Amount Sold</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in items.keys() %} 
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ items[key] }}</td>   
+                    </tr> 
+                {% endfor %}
+                <tr> 
+                    <td>Total</td> 
+                    <td>{{ total }}</td>
+                </tr>
+            </tbody>
+        </table> 
+    </div> 
+    {% endif %}
+</div>
+{% endblock %}

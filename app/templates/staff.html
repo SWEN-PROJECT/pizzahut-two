@@ -8,27 +8,34 @@
         <div class="head">
             <h1>All Orders</h1>
         </div>
-        <div class="card-set">
-            {% for order in orders %}
-                <div class="card card-h">
-                    <div class="card-body">
-                        <div class="card-title">{{order.order_num}}</div>
-                        <div class="card-text">
-                            <ul>
-                                {% for item in orderdict[order.order_num] %}
-                                <li>{{item}}</li>
-                                {% endfor %}
-                            </ul>
-                            {{order.total_price}} 
+        {%  if orders != [] %}
+            <div class="card-set">
+                {% for order in orders %}
+                    <div class="card card-h">
+                        <div class="card-body">
+                            <div class="card-title">{{order.order_num}}</div>
+                            <div class="card-text">
+                                <ul>
+                                    {% for item in orderdict[order.order_num] %}
+                                    <li>{{item}}</li>
+                                    {% endfor %}
+                                </ul>
+                                {{order.total_price}} 
+                            </div> 
                         </div> 
-                    </div> 
-                    <div class="card-footer">
-                        <a href="{{ url_for ('markcancelled', order_num = order.order_num)}}" class="to-hide">Cancel</a>
-                        <a href="{{ url_for ('markcomplete', order_num = order.order_num)}}" class="to-hide">Complete</a>
+                        <div class="card-footer">
+                            <a href="{{ url_for ('markcancelled', order_num = order.order_num)}}" class="to-hide">Cancel</a>
+                            <a href="{{ url_for ('markcomplete', order_num = order.order_num)}}" class="to-hide">Complete</a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+        {% else %}
+        <div class="no-orders">
+            <h2>Currently, there are no new orders.</h2>
+            <h4>Thank you!</h4>
         </div>
+        {% endif %}
     </section>
 {% endblock %}
 
