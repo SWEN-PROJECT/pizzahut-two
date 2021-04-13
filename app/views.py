@@ -71,10 +71,14 @@ def signup():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-	if not current_user.is_authenticated:
-		return redirect(url_for('landing'))
-	session['logged-in'] = True
-	return render_template('dashboard.html', type=current_user.u_type)
+    if not current_user.is_authenticated:
+        return redirect(url_for('landing'))
+    session['logged-in'] = True   #lol at all
+    if (current_user.u_type == "C"): #dis deven funny 
+        ctrl = LSHandler.LSHandler()
+        rp = ctrl.getRewards(current_user.uid)
+        return render_template('dashboard.html', type=current_user.u_type, points=rp)
+    return render_template('dashboard.html', type=current_user.u_type)
 
 """Get Menu Method"""
 @app.route("/menu", methods=['POST', 'GET'])
@@ -121,6 +125,10 @@ def menu():
                         flash('Item Does Not Exist', 'danger')
                         return redirect(url_for('menu'))
             else:  flash_errors(form)
+    if (current_user.u_type == "C"): #dis deven funny 
+        ctrl = LSHandler.LSHandler()
+        rp = ctrl.getRewards(current_user.uid)
+        return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form, points=rp)
     return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form)
 
 @app.route('/menu/<int:itemID>', methods=['GET'])
@@ -158,7 +166,7 @@ def checkoutCO():
 def confirmCO():
     global order_handler
     if request.method == 'POST':
-        result = order_handler.confirm(request.form.get('type'))
+        result = order_handler.confirm(request.form.get('type'), request.form.get('points'))
         return f'{result}'
     return "Order Not Confirmed"
 

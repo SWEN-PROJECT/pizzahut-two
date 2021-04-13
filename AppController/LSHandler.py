@@ -83,3 +83,8 @@ class LSHandler():
                 return "F"
         else:
             return "T"
+    
+    def getRewards(self,id):
+        manager = UserManager.UserManager()
+        points = manager.getRP(id)
+        return points

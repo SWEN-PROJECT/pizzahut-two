@@ -213,6 +213,23 @@ body {
   font-weight: 500;
 }
 
+.card-footer a:hover {
+  cursor: pointer;
+}
+
+.card-footer .to-hide, .card-footer .btn-a {
+  background-color: white;
+  color: #0580C3;
+  padding: 0.3rem;
+  border-radius: 3px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.card-footer .break {
+  margin-right: 8px;
+}
+
 .card-footer:last-child {
   border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 }
@@ -546,6 +563,13 @@ img {
 
 .hide {
   display: none;
+}
+
+.checkout {
+  background-color: #CF6E45;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 20px;
 }
 
 .alert {

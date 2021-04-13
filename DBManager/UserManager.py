@@ -144,10 +144,37 @@ class UserManager():
         cust = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
         return cust
 
+    def getRP(self, id):
+        try:
+            result = db.session.query(Customer).filter_by(uid=id).first()
+            if result == []:
+                return None 
+            else:
+                return result.rewards_points
+
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
+
     def updateRP(self, id, gained):
-        result = db.session.query(Customer).filter_by(uid=id).first()
-        rp = result.rewards_points + gained
-        result.rewards = rp
-        db.session.merge(result)
-        db.session.commit()
-        return "Points Added"
+        try:
+            result = db.session.query(Customer).filter_by(uid=id).first()
+            rp = result.rewards_points + gained
+            result.rewards_points = rp
+            db.session.merge(result)
+            db.session.commit()
+            return "Points Added"
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
+    
+    def useRP(self, id, points):
+        try:
+            result = db.session.query(Customer).filter_by(uid=id).first()
+            result.rewards_points = points
+            db.session.merge(result)
+            db.session.commit()
+            return "Points Used"
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None

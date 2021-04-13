@@ -9,7 +9,8 @@
     {% if type == "C" %}
     <div class="head">
         <h1>Menu</h1> 
-        <a href="" class="checkout" style="color: black;">Checkout</a>
+        <h3>Points: {{points}}</h3>
+        <a href="" class="checkout">Checkout </a>
     </div>
     <div class="back has-fade"></div>
     <div class="confirm card has-fade">
@@ -24,6 +25,10 @@
                 <select name="type" id="cars">
                     <option value="P">In-Store Pick-Up</option>
                     <option value="D">Delivery</option>
+                </select>
+                <select name="points" id="points">
+                    <option value="N">Don't Use Points</option>
+                    <option value="U">Use Points</option>
                 </select>
             </form>
         </div>            
@@ -88,8 +93,8 @@
                     <p class="card-text"> {{ item.getDescription() }}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" id="ham" class="edititem">Edit Item</a><br/>
-                    <a href="#" class="deletebtn" value="{{item.getNum()}}">Delete Item</a><br/>
+                    <a href="#" id="ham" class="edititem btn-a break">Edit Item</a>
+                    <a href="#" class="deletebtn btn-a" value="{{item.getNum()}}">Delete Item</a><br/>
                 </div>
             </div>
         {% endfor %}

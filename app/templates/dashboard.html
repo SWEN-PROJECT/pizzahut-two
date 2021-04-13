@@ -7,7 +7,7 @@
 <section>
   {% include 'flashmssgs.html' %} {% if type == "C" %}
   <div class="points">
-    <h1>Points: 0000</h1>
+    <h1>Points: {{points}}</h1>
   </div>
   <h1 class="first">Dashboard</h1>
   <h2>Welcome, User</h2>
@@ -95,6 +95,14 @@
           </div>
         </div>
       </a>
+    </div>
+    <div class="image">
+      <img
+        src="{{url_for('static', filename='img/dash.svg')}}"
+        alt="Personal Preferences"
+      />
+    </div>
+  </div>
   {% endif %}
 </section>
 {% endblock %}

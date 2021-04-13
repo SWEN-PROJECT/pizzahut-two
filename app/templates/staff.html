@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/staff.css')}}">
 {% endblock %}
 
 {% block main %}
-    <section class="pads container">
-        <div class="head">
-            <h1>All Orders</h1>
-        </div>
+    <section class="pads container no-back min">
         {%  if orders != [] %}
+            <div class="head">
+                <h1>All Orders</h1>
+            </div>
             <div class="card-set">
                 {% for order in orders %}
                     <div class="card card-h">
                         <div class="card-body">
-                            <div class="card-title">{{order.order_num}}</div>
+                            <div class="card-title">
+                                Order {{order.order_num}}
+                            </div>
                             <div class="card-text">
                                 <ul>
                                     {% for item in orderdict[order.order_num] %}
@@ -24,16 +26,24 @@
                             </div> 
                         </div> 
                         <div class="card-footer">
-                            <a href="{{ url_for ('markcancelled', order_num = order.order_num)}}" class="to-hide">Cancel</a>
+                            <a href="{{ url_for ('markcancelled', order_num = order.order_num)}}" class="to-hide break">Cancel</a>
                             <a href="{{ url_for ('markcomplete', order_num = order.order_num)}}" class="to-hide">Complete</a>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-        <div class="no-orders">
-            <h2>Currently, there are no new orders.</h2>
-            <h4>Thank you!</h4>
+        <div class="grid">
+            <div class="no-orders">
+                <h2>Currently, there are no new orders.</h2>
+                <h4>Thank you!</h4>
+            </div>    
+            <div class="image">
+              <img
+                src="{{url_for('static', filename='img/undraw_empty_xct9.svg')}}"
+                alt="Personal Preferences"
+              />
+            </div>
         </div>
         {% endif %}
     </section>

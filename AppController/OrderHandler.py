@@ -27,11 +27,31 @@ class OrderHandler():
             self.final_order = m_item_list
             return self.jsonifyItems(m_item_list)
 
-    def confirm(self, type):
+    def confirm(self, type, points):
         self.current_order.setCheckoutType(type)
-        self.current_order.setTotal(self.getOrderTotal())
+        if points == "U":
+            rp = self.getPoints()
+            if rp == 0:
+                self.current_order.setTotal(self.getOrderTotal())
+                pointsleft = 0
+            elif rp > self.getOrderTotal():
+                self.current_order.setTotal(0)
+                pointsleft = rp - self.getOrderTotal()
+            else:
+                self.current_order.setTotal(self.getOrderTotal() - rp )
+                pointsleft = 0
+
+            if pointsleft > 0:
+                self.usePoints(pointsleft)
+            else: 
+                self.usePoints(0)
+        else:
+            self.current_order.setTotal(self.getOrderTotal())
         result = self.manager.insertOrder(self.final_order, self.current_order)
+        self.updatePoints()
         if result == 'Success':
+            self.final_order = None
+            self.current_order = None
             return 'OK'
         else:
             return 'NOK'
@@ -75,15 +95,22 @@ class OrderHandler():
         else: gained = 0
         return gained
 
-    def updateRP(self):
+    def updatePoints(self):
         customerid = current_user.uid
         gainedrp = self.calculateRP()
         mymanager = UserManager.UserManager()
         update = mymanager.updateRP(customerid, gainedrp)
-        if update == "Added":
-            return "Y"
-        else:
-            return "N"
+
+    def getPoints(self):
+        customerid = current_user.uid
+        mymanager = UserManager.UserManager()
+        rp = mymanager.getRP(customerid)
+        return rp
+
+    def usePoints(self, points):
+        customerid = current_user.uid
+        mymanager = UserManager.UserManager()
+        update = mymanager.useRP(customerid, points)    
 
     def completion(self):
         result = self.manager.getRecentOrder(current_user.uid)

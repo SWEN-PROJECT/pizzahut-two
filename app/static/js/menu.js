@@ -21,7 +21,11 @@ window.onload = function(event){
                     method: 'POST' ,
                 }).then(response => response.text())
                   .then(datar => {
-                        checkout.textContent = `Checkout(${datar})`;
+                        console.log(datar)
+                        if(datar.length < 2){
+                            console.log("We are here");
+                            checkout.textContent = `Checkout (${datar})`;
+                        }
                    })
                   .catch(error => {
                         console.log(error);
@@ -54,6 +58,8 @@ window.onload = function(event){
                         result += `<div class="cell"> <p>${i+1} ${lst[i].name}</p> <p>${lst[i].qty}</p> <p>${lst[i].price}</p></div>`;
                     }
                     section.innerHTML = result;
+                    checkout.innerHTML = 'Checkout';
+
                 }
             })
             .catch(error => {
@@ -79,11 +85,16 @@ window.onload = function(event){
     card_footer.addEventListener('click', (event) =>{
             event.preventDefault();
 
-            let section = document.querySelector('.item-info').querySelector('form').querySelector('select');
-            let val = section.value;
+            let section = document.querySelector('.item-info').querySelector('form').querySelectorAll("select");
+            let typesection = section[0]
+            let pointsection = section[1]
+            let val = typesection.value;
+            let rp = pointsection.value;
+
 
             var searchParams = new URLSearchParams();
             searchParams.append('type', val);
+            searchParams.append('points', rp);
 
             fetch(`/menu/confirm`, {
                 method: 'POST' ,
@@ -91,7 +102,7 @@ window.onload = function(event){
             }).then(response => response.text())
             .then(received => {
                     if( received == 'OK'){
-                        checkout.textContent = 'Checkout';
+                        checkout.innerHTML = 'Checkout';
                         if (confirms.classList.contains('open')){
             
                             confirms.classList.remove('open');

@@ -1,8 +1,11 @@
 {% extends "base.html" %} 
-
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css')}}">
+{% endblock %}
 {% block main %}
 
-<div class="main">
+<div class="main pads container">
+    <h1>Report Generation</h1>
     <form method='POST' action="{{ url_for('generate_rep')}}">
         {{ form.csrf_token }}
         
@@ -22,7 +25,7 @@
         {{ form.filter_by }}
 
         <button type="submit"> Submit</button>
-    </form>
+    </form><br>
     {% if items != None %}
     <h1>Reporting : {{ reptype }} Report</h1>
     <div class="table-data">
@@ -37,15 +40,15 @@
                 {% for key in items.keys() %} 
                     <tr>
                         <td>{{ key }}</td>
-                        <td>{{ items[key] }}</td>   
+                        <td class="data">{{ items[key] }}</td>   
                     </tr> 
                 {% endfor %}
                 <tr> 
-                    <td>Total</td> 
-                    <td>{{ total }}</td>
+                    <td class="total">TOTAL</td> 
+                    <td class="data total dollar">${{ total }}0</td>
                 </tr>
             </tbody>
-        </table> 
+        </table><br>
     </div> 
     {% endif %}
 </div>
