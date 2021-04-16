@@ -54,6 +54,8 @@ class OrderManager():
             print("{}".format(ex))
             return ex
 
+    """Method to get the most recent order of a customer form the database
+        return : dictionary or empty list"""
     def getRecentOrder(self, id):
         try:
             oquery =  db.session.query(Order).filter_by(uid=id).all()
@@ -79,21 +81,8 @@ class OrderManager():
             print("{}".format(ex))
             return []
 
-    def getAllOrders(self):
-        try:
-            orders = db.session.query(Order).all()
-            if orders == [] or orders == None:
-                raise Exception("Query returned something empty")
-            
-            itemLst = db.session.query(ItemList).all()
-            if itemLst == [] or itemLst == None:
-                raise Exception("Query returned something empty")
-            
-            return [orders,itemLst]
-        except Exception as ex:
-            print("{}".format(ex))
-            return []
-    
+    """Method to retrieve all orders from the database
+        return : list"""
     def getAllOrders(self):
         try:
             orders = db.session.query(Order).filter_by(tag = "Pending").all()
@@ -122,12 +111,16 @@ class OrderManager():
             print("{}".format(ex))
             return []
     
+    """Method to change the status of an order in thte database to complete
+        return : string"""
     def markOrderComplete(self, ordernum):
         order = db.session.query(Order).filter_by(order_num = ordernum).first()
         order.tag = "Complete"
         db.session.commit()
         return "Order Completed"
     
+    """Method to change the status of an order in thte database to cancelled
+        return : string"""
     def markOrderCancelled(self, ordernum):
         order = db.session.query(Order).filter_by(order_num = ordernum).first()
         order.tag = "Cancelled"

@@ -6,9 +6,10 @@ class MenuManager():
     def __init__(self):
         pass
 
+    """Method to handle the addition of an item into the database
+        return : string or None"""
     def addItem(self, item):
         try:
-            #extracting item data
             name = item.getName()
             description = item.getDescription()
             itype = item.getType()
@@ -22,14 +23,14 @@ class MenuManager():
             print("Error: {}".format(e))
             return None
     
+    """Method to handle the editing of an item that is already in the database
+        return : string, None"""
     def editItem(self, item):
         try:
-            #Get Item 
             itm = db.session.query(Item).filter_by(item_id=item.getNum()).first()
             if itm == [] or itm == None:
                 raise Exception("Query returned something empty")
             
-            #extracting item data
             itm.item_name = item.getName()
             itm.item_description = item.getDescription()
             itm.item_tag = item.getType()
@@ -42,9 +43,10 @@ class MenuManager():
             print("Error: {}".format(e))
             return None
 
+    """Method to handle the deletion of an item from the database
+        return : string or None"""
     def deleteItem(self, itemid):
         try:
-            #extracting item data
             result = db.session.query(Item).filter_by(item_id=itemid).first()
             if result != None or result == []:
                 db.session.delete(result)
@@ -55,7 +57,9 @@ class MenuManager():
         except Exception as e:
             print("Error: {}".format(e))
             return None
-  
+    
+    """Method to get all items that have a specific name
+        return : obj or None"""
     def yItem(self, iname):
         try:
             result = db.session.query(Item).filter_by(item_name=iname).all()
@@ -66,6 +70,8 @@ class MenuManager():
         except:
             return None 
     
+    """Method to get all items from the database
+        return : list or None"""
     def getItems(self):
         try:
             result = db.session.query(Item).order_by(Item.item_id).all()
@@ -76,6 +82,8 @@ class MenuManager():
         except:
             return None
     
+    """Method to query a specific itema nd retrieve it from the database
+        return : obj or None"""
     def queryItem(self, id=None, name=None):
         try:
             if id == None:

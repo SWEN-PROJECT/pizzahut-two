@@ -19,6 +19,8 @@ class UserManager():
         except:
             return None 
 
+    """Method to query a given user by username
+        return : user obj"""
     def queryUser(self, user):
         try:
             result = db.session.query(Euser).filter_by(u_name=user.getUname()).all()
@@ -29,8 +31,8 @@ class UserManager():
         except:
             return None 
     
-    
-
+    """Method to query a given customer by id
+        return : customer id"""
     def queryCustomer(self, id):
         try:
             result = db.session.query(Customer).filter_by(uid=id).all()
@@ -42,6 +44,8 @@ class UserManager():
             print("{}".format(ex))
             return ex
     
+    """Method to handle insertion of a user into the database
+        return :string"""
     def insertUser(self, customer):
         hashedPass = self.encrypt_password(customer.getPassword())
         
@@ -52,15 +56,18 @@ class UserManager():
         name = customer.getName()
         fname = name.getFname()
         lname = name.getLname()
+        
         #address
         address = customer.getAddress()
         streetnum = address.getstreetnum()
         streetname = address.getstreetname()
         town = address.gettown()
         parish = address.getparish()
+        
         #contact
         phone = customer.getTeleNum()
         email = customer.getEmail()
+        
         #add to customer db
         db.session.add(Customer(user[0].uid, fname, lname, phone, streetnum, streetname, town, parish, email, 0))
         db.session.commit()
@@ -106,7 +113,9 @@ class UserManager():
             print("{}".format(ex))
             return ex
 
-    #add a new manager user to database
+    """Method to insert an new manager into the database
+        HELPER (in)
+        return : string"""
     def insertManager(self, manager):
             mname = manager.getUname() 
             hashedPass = self.encrypt_password(manager.getPassword())
@@ -117,7 +126,8 @@ class UserManager():
             return "Manager added"
         
     
-    #add a new staff user to the database
+    """Method to insert a new staff into the database
+        return : string"""
     def insertStaff(self, staff):
         try:
             sname = staff.getUname() 
@@ -144,6 +154,8 @@ class UserManager():
         cust = Customers.Customers(uname, pwd, fname, lname, streetname, streetnum, town, parish, tele, email)
         return cust
 
+    """Method to get the rewards points for a specific customer in the database
+        return : int or None"""
     def getRP(self, id):
         try:
             result = db.session.query(Customer).filter_by(uid=id).first()
@@ -156,6 +168,8 @@ class UserManager():
             print("Error: {}".format(e))
             return None
 
+    """Method to update the rewards points for a specific customer in the database
+        return : string or None"""
     def updateRP(self, id, gained):
         try:
             result = db.session.query(Customer).filter_by(uid=id).first()
@@ -168,6 +182,8 @@ class UserManager():
             print("Error: {}".format(e))
             return None
     
+    """Method to use/deduct the rewards points for a specific customer in the database
+        return : string or None"""
     def useRP(self, id, points):
         try:
             result = db.session.query(Customer).filter_by(uid=id).first()
