@@ -125,7 +125,7 @@ def menu():
                         flash('Item Does Not Exist', 'danger')
                         return redirect(url_for('menu'))
             else:  flash_errors(form)
-    if (current_user.u_type == "C"): #dis deven funny 
+    if (current_user.u_type == "C"):
         ctrl = LSHandler.LSHandler()
         rp = ctrl.getRewards(current_user.uid)
         return render_template('menu.html', items=items, type=current_user.u_type, edit_form = form, points=rp)
@@ -170,6 +170,7 @@ def confirmCO():
         return f'{result}'
     return "Order Not Confirmed"
 
+"""Displaying all menu items"""
 @login_required
 @app.route("/vieworders")
 def vieworders():
@@ -178,6 +179,7 @@ def vieworders():
     if result == []: return render_template('staff.html', orders=result, orderdict=result)
     else: return render_template('staff.html', orders=result[0], orderdict=result[1])
 
+""" Marking an order as complete"""
 @login_required
 @app.route("/markcomplete <int:order_num>")
 def markcomplete(order_num):
@@ -185,6 +187,7 @@ def markcomplete(order_num):
     result = order_handler.markComplete(order_num)
     return redirect(url_for('vieworders'))
 
+""" Marking an order as cancelled """
 @login_required
 @app.route("/markcancelled <int:order_num>")
 def markcancelled(order_num):
@@ -192,6 +195,7 @@ def markcancelled(order_num):
     result = order_handler.markCancelled(order_num)
     return redirect(url_for('vieworders'))
 
+""" Reroutes to checked out page after successful order """
 @app.route('/complete', methods=['POST', 'GET'])
 @login_required
 def order_complete():
@@ -241,9 +245,7 @@ def get_image(filename):
     rootdir = os.getcwd()
     return  send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']),filename)
 
-
-
-#Add Staff Account 
+"""Add a staff account"""
 @login_required
 @app.route('/addstaff', methods=['POST', 'GET'])
 def addStaff():
@@ -264,6 +266,7 @@ def addStaff():
             flash_errors(sform)
     return render_template('addstaff.html', form = sform)
 
+""" Generate a report """
 @login_required
 @app.route('/report', methods=['POST', 'GET'])
 def generate_rep():
@@ -298,18 +301,14 @@ def generate_rep():
                 return render_template('reports.html',form = rform, items=itemsdict, total=price, reptype = reptype)
     return render_template('reports.html', form = rform, items=None, total=None, reptype = None)
 
+"""Yannik Lyn Fatt"""
+
 @app.after_request
 def add_header(response):
-    """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also tell the browser not to cache the rendered page. If we wanted
-    to we could change max-age to 600 seconds which would be 10 minutes.
-    """
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
 
-"""Yannik Lyn Fatt"""
 @app.errorhandler(404)
 def page_not_found(error):
     """Custom 404 page."""

@@ -5,9 +5,6 @@ from DBManager import UserManager
 from Users import Customers, User, Staff
 from flask_login import login_user, current_user
 
-
-"""Class to handle all UI interactions"""
-
 class LSHandler():
 
     def __init__(self):
@@ -83,7 +80,8 @@ class LSHandler():
                 return "F"
         else:
             return "T"
-    
+    """ Method to hnadle to retrieval of the req=wards points allotted to a signed in user
+        return : int"""
     def getRewards(self,id):
         manager = UserManager.UserManager()
         points = manager.getRP(id)

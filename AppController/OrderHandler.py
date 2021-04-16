@@ -10,6 +10,8 @@ class OrderHandler():
         self.final_order = None
         self.manager = OrderManager.OrderManager()
 
+    """Method to handle the addition of items to a customer's order
+        return : int"""
     def addToOrder(self, itemid):
         if self.current_order ==  None:
             self.current_order = Order.Order(current_user.uid)
@@ -18,6 +20,8 @@ class OrderHandler():
             self.current_order.addItem(itemid)
         return self.current_order.getLength()
 
+    """Method to handle the checkout of a customer after the have finished adding items
+        return : "jsonified" list"""
     def checkout(self):
         if self.current_order == None:
             return jsonify({ 'list': 'NOWM'})
@@ -27,6 +31,9 @@ class OrderHandler():
             self.final_order = m_item_list
             return self.jsonifyItems(m_item_list)
 
+    """Method to handle the confirmation of a users order and
+        calculations regarding rewards points.
+        return : string"""
     def confirm(self, type, points):
         self.current_order.setCheckoutType(type)
         if points == "U":
@@ -56,6 +63,7 @@ class OrderHandler():
         else:
             return 'NOK'
 
+    """HELPER"""
     def normalize(self, lst):
         seen = []
         result = []
@@ -66,6 +74,7 @@ class OrderHandler():
                 seen.append(i)
         return result
 
+    """HELPER"""
     def jsonifyItems(self, items):
         result = { 'list': [] }
         for i in items:
@@ -78,13 +87,17 @@ class OrderHandler():
             result['list'].append(body)
         return jsonify(result)
 
-    # Order total functions 
+    """Method to calculate the order total of a given order
+        return : int"""
     def getOrderTotal(self):
         total = 0
         for i in self.final_order:
             total += (i.getPrice() * i.getQty())
         return total
     
+    """Method to calculate the amount of rewards points a customer may gain having
+            spent a specific amount of money.
+        return : int"""
     def calculateRP(self):
         total = self.getOrderTotal()
         gained = 0
@@ -95,22 +108,29 @@ class OrderHandler():
         else: gained = 0
         return gained
 
+    """Method to update the rewards points for a customer
+        return : -"""
     def updatePoints(self):
         customerid = current_user.uid
         gainedrp = self.calculateRP()
         mymanager = UserManager.UserManager()
         update = mymanager.updateRP(customerid, gainedrp)
 
+    """Method to retrieve the rewards points of a given customer
+        return : int"""
     def getPoints(self):
         customerid = current_user.uid
         mymanager = UserManager.UserManager()
         rp = mymanager.getRP(customerid)
         return rp
 
+    """Method to handle the usage/deduction of rewards points form a customer's account
+        return : -"""
     def usePoints(self, points):
         customerid = current_user.uid
         mymanager = UserManager.UserManager()
         update = mymanager.useRP(customerid, points)    
+
 
     def completion(self):
         result = self.manager.getRecentOrder(current_user.uid)
@@ -123,6 +143,8 @@ class OrderHandler():
         else:
             return None
 
+    """Method to handle the creation of an order based on user input
+        return : order object"""
     def buildOrder(self, order):
         obj = Order.Order(current_user.uid)
         obj.setTotal(order.total_price)
@@ -130,6 +152,8 @@ class OrderHandler():
         obj.setStatus(order.tag)
         return  obj
 
+    """Method to handle the display of all order to a staff viewer
+        return : list"""
     def assembleAll(self):
         try:
             result = self.manager.getAllOrders()
@@ -139,11 +163,13 @@ class OrderHandler():
         except:
             return []
         
-    
+    """Method to handle marking an order complete
+        return : string"""
     def markComplete(self, ordernum):
         result = self.manager.markOrderComplete(ordernum)
         return result
-
+    """Method to handle marking an orer cancelled
+        return : string"""
     def markCancelled(self, ordernum):
         result = self.manager.markOrderCancelled(ordernum)
         return result

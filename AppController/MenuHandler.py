@@ -71,6 +71,7 @@ class MenuHandler():
             print("f")
             return "NOK"
     
+    """HELPER"""
     def retrieveHandle(self, itemid):
         manager = MenuManager.MenuManager()
         result = manager.queryItem(itemid)
@@ -79,6 +80,7 @@ class MenuHandler():
         else:
             return self.jsonifyItems([result])
 
+    """HELPER"""
     def jsonifyItems(self, items):
         result = { 'result': [] }
         for i in items:
