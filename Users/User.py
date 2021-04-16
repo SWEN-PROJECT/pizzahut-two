@@ -3,7 +3,6 @@ class User:
         self.uname = uname
         self.pwd = pwd
         self.utype = utype
-        # self.id = id
 
     def getUname(self):
         return self.uname
@@ -14,12 +13,9 @@ class User:
     def getType(self):
         return self.utype
     
-    #methods 
-    #@uname.setter
     def setUname(self, uname):
         self.uname = uname
 
-    #@pwd.setter
     def setPassword(self, pwd):
         self.pwd = pwd
 

@@ -43,5 +43,3 @@ class Customers(User.User):
     
     def setTelenum(self, tele):
         self.telenum = tele
-
-    #reward points need to go in 
