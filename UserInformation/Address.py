@@ -21,20 +21,16 @@ class Address:
     def gettown(self):
         return self.town
     
-    
-    # @streetName.setter
     def setstreetname(self, streetname):
         self.streetname = streetname
 
-    # @streetNum.setter
     def setstreetnum(self, streetnum):
         self.streetnum = streetnum
 
-    # @Town.setter
     def settown(self, town):
         self.town = town
     
-    # @Parish.setter
+
     def setparish(self, parish):
         self.parish = parish
 
