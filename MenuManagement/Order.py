@@ -1,5 +1,5 @@
 class Order():
-
+    """ The Order Class"""
     def __init__(self, uid = 0):
        self.item_list = []
        self.distinct = []

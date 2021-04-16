@@ -1,5 +1,5 @@
 class Item:
-    
+    """ The Item Class """
     def __init__(self, name, description, itype, price, imagename, num = 0, quan = 0):
         self.num = num
         self.name = name
