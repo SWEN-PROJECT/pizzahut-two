@@ -7,8 +7,6 @@ from .forms import LoginForm, SignupForm, ItemForm, UpdateUserForm, StaffForm, R
 from AppController import LSHandler, MenuHandler, ReportHandler
 from app.models import Euser
 from werkzeug.utils import secure_filename
-from DBManager import UserManager
-from Users import User
 from .globals import order_handler, menu_handler
 
 @app.route("/")
