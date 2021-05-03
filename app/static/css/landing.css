@@ -7,8 +7,8 @@ html {
 *,
 *::before,
 *::after {
-  -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .pads {
@@ -148,6 +148,7 @@ body {
 }
 
 .card {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,22 +157,21 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   word-wrap: break-word;
+  min-width: 0;
   background-color: #ffffff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: .25rem;
-  width: 20rem;
   -webkit-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
           box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .card-h {
-  height: 80%;
+  height: 59%;
 }
 
 .card-img {
   width: 100%;
-  height: 70%;
   border-top-left-radius: calc(.25rem - 1px);
   border-top-right-radius: calc(.25rem - 1px);
 }
@@ -184,7 +184,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 0.5rem 1rem;
 }
 
 .card-title {
@@ -205,6 +204,10 @@ body {
   background-color: #0580C3;
   border-top: 1px solid #0580C3;
   text-align: center;
+}
+
+.card-footer:last-child {
+  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
 }
 
 .card-footer a {
@@ -230,10 +233,6 @@ body {
   margin-right: 8px;
 }
 
-.card-footer:last-child {
-  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
-}
-
 .card-g {
   background-color: #F5F5F5;
   width: 400px;
@@ -254,6 +253,10 @@ body {
 .card .bi-plus:hover {
   cursor: pointer;
   opacity: 0.75;
+}
+
+.img9 {
+  height: 40%;
 }
 
 .top {
@@ -461,12 +464,12 @@ img {
 }
 
 .container .card-set {
-  margin: 2rem auto;
+  margin: 1rem auto;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 30% 30% 30%;
       grid-template-columns: 30% 30% 30%;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .confirm {
