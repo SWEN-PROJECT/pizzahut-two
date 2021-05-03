@@ -7,7 +7,7 @@ app = Flask(__name__)
 obj = Config
 if obj.SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
     obj.SQLALCHEMY_DATABASE_URI = obj.SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
-app.config.from_object(Config)
+app.config.from_object(obj)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
