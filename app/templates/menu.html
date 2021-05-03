@@ -39,7 +39,7 @@
     <div class="card-set">
         {% for item in items %}
             <div class="card card-h" id={{ item.getNum() }}>
-                <img src="{{ url_for('get_image', filename= item.getImageName()) }}" alt="" class="card-img img9">
+                <img src="{{ url_for('get_image', filename= item.getImageName()) }}" alt="" class="card-img">
                 <div class="card-body">
                     <h5 class="card-title">{{ item.getName() }}</h5>
                     <p class="card-text"> {{ item.getDescription() }}</p>
